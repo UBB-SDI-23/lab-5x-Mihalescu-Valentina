@@ -86,7 +86,7 @@ export const AllVenues = () => {
                                         </Link>
                                     </TableCell>
                                     <TableCell align="right">{venue?.venue_adress}</TableCell>
-                                    <TableCell align="right">{venue?.host_city_idd || 'Unknown'}</TableCell>
+                                    <TableCell align="right">{venue?.host_city_id?.host_city_name || 'Unknown'}</TableCell>
                                     {/*<TableCell component="th" scope="row">*/}
                                     {/*    <Link to={`/hostcity/${venue.host_city_idd}/details`} title="View venue details">*/}
                                     {/*        {venue?.host_city_idd}*/}
