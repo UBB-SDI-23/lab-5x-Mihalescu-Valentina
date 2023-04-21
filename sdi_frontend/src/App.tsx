@@ -51,6 +51,11 @@ import {HostCityDetails} from "./components/hostcities/HostCityDetails";
 import {HostCityDelete} from "./components/hostcities/HostCityDelete";
 import {HostCityEdit} from "./components/hostcities/HostCityEdit";
 import {HostCityFilter} from './components/hostcities/HostCityFilter';
+import {AllVenues} from "./components/venues/AllVenues";
+import {VenueDetails} from "./components/venues/VenueDetails";
+import {VenueDelete} from "./components/venues/VenueDelete";
+import {VenueAdd} from "./components/venues/VenueAdd";
+import {VenueEdit} from "./components/venues/VenueEdit";
 
 function App() {
     return (
@@ -66,6 +71,16 @@ function App() {
                     <Route path="/hostcity/:hostCityId/delete" element={<HostCityDelete />} />
                     <Route path="/hostcity/add" element={<HostCityAdd />} />
                     <Route path="/hostcity/filter" element={<HostCityFilter />} />
+
+                    <Route path="/venue" element={<AllVenues />} />
+                    <Route path="/venue/:venueId/details" element={<VenueDetails />} />
+                    <Route path="/hostcity/:venueId/edit" element={<VenueEdit />} />
+                    <Route path="/venue/:venueId/edit" element={<VenueDetails />} />
+                    <Route path="/venue/:venueId/delete" element={<VenueDelete />} />
+                    <Route path="/venue/add" element={<VenueAdd />} />
+
+
+
                 </Routes>
             </Router>
         </React.Fragment>

@@ -44,7 +44,7 @@ export const HostCityEdit = () => {
         <Container>
             <Card>
                 <CardContent>
-                    <IconButton component={Link} sx={{ mr: 3 }} to={`/teachers/`}>
+                    <IconButton component={Link} sx={{ mr: 3 }} to={`/venue/`}>
                         <ArrowBackIcon />
                     </IconButton>{" "}
                     <form onSubmit={updateHostCity}>
@@ -95,7 +95,7 @@ export const HostCityEdit = () => {
                             onChange={(event) => setHostCity({ ...hostcity, quality_factor: parseInt(event.target.value)})}
                         />
 
-                        <Button type="submit">Update Teacher</Button>
+                        <Button type="submit">Update HostCity</Button>
                     </form>
                 </CardContent>
                 <CardActions></CardActions>
