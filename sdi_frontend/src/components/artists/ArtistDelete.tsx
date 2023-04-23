@@ -4,29 +4,29 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { BACKEND_API_URL } from "../../constants";
 
-export const EditionDelete = () => {
-    const { editionId } = useParams();
+export const ArtistDelete = () => {
+    const { artistId } = useParams();
     const navigate = useNavigate();
 
     const handleDelete = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
-        await axios.delete(`${BACKEND_API_URL}/edition/${editionId}`);
-        navigate("/edition");
+        await axios.delete(`${BACKEND_API_URL}/artist/${artistId}`);
+        navigate("/artist");
     };
 
     const handleCancel = (event: { preventDefault: () => void }) => {
         event.preventDefault();
-        navigate("/edition");
+        navigate("/artist");
     };
 
     return (
         <Container>
             <Card>
                 <CardContent>
-                    <IconButton component={Link} sx={{ mr: 3 }} to={`/edition`}>
+                    <IconButton component={Link} sx={{ mr: 3 }} to={`/artist`}>
                         <ArrowBackIcon />
                     </IconButton>{" "}
-                    Are you sure you want to delete this edition? This cannot be undone!
+                    Are you sure you want to delete this artist? This cannot be undone!
                 </CardContent>
                 <CardActions>
                     <Button onClick={handleDelete}>Delete it</Button>
