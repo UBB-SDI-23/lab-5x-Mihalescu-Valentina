@@ -66,6 +66,11 @@ import {EditionEdit} from "./components/editions/EditionEdit";
 import {EditionDetails} from "./components/editions/EditionDetails";
 import {EditionDelete} from "./components/editions/EditionDelete";
 import {EditionAdd} from "./components/editions/EditionAdd";
+import {ArtistDetails} from "./components/artists/ArtistDetails";
+import {AllArtists} from "./components/artists/AllArtists";
+import {ArtistEdit} from "./components/artists/ArtistEdit";
+import {ArtistDelete} from "./components/artists/ArtistDelete";
+import {ArtistAdd} from "./components/artists/ArtistAdd";
 
 function App() {
     return (
@@ -99,6 +104,12 @@ function App() {
                     <Route path="/edition/:editionId/edit" element={<EditionEdit />} />
                     <Route path="/edition/:editionId/delete" element={<EditionDelete />} />
                     <Route path="/edition/add" element={<EditionAdd />} />
+
+                    <Route path="/artist" element={<AllArtists />} />
+                    <Route path="/artist/:artistId/details" element={<ArtistDetails />} />
+                    <Route path="/artist/:artistId/edit" element={<ArtistEdit />} />
+                    <Route path="/artist/:artistId/delete" element={<ArtistDelete />} />
+                    <Route path="/artist/add" element={<ArtistAdd />} />
 
 
 
