@@ -73,6 +73,7 @@ export const EditionEdit = () => {
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
+                            value={edition.motto}
                             onChange={(event) => setEdition({ ...edition, motto: event.target.value })}
                         />
 

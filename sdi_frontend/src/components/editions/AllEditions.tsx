@@ -67,7 +67,7 @@ export const AllEditions = () => {
                                         {index + 1}
                                     </TableCell>
                                     <TableCell component="th" scope="row">
-                                        <Link to={`/country/${edition.id}/details`} title="View course details">
+                                        <Link to={`/edition/${edition.id}/details`} title="View course details">
                                             {edition.edition_year}
                                         </Link>
                                     </TableCell>
