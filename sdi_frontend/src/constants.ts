@@ -1,1 +1,1 @@
-export  const BACKEND_API_URL = "http://13.48.31.160/eurovision";
+export  const BACKEND_API_URL = "http://16.16.156.17/eurovision";
