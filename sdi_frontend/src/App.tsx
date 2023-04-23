@@ -56,6 +56,11 @@ import {VenueDetails} from "./components/venues/VenueDetails";
 import {VenueDelete} from "./components/venues/VenueDelete";
 import {VenueAdd} from "./components/venues/VenueAdd";
 import {VenueEdit} from "./components/venues/VenueEdit";
+import {CountryDetails} from "./components/countries/CountryDetails";
+import {CountryDelete} from "./components/countries/CountryDelete";
+import {CountryAdd} from "./components/countries/CountryAdd";
+import {AllCountries} from "./components/countries/AllCountries";
+import {CountryEdit} from "./components/countries/CountryEdit";
 
 function App() {
     return (
@@ -74,10 +79,16 @@ function App() {
 
                     <Route path="/venue" element={<AllVenues />} />
                     <Route path="/venue/:venueId/details" element={<VenueDetails />} />
-                    <Route path="/hostcity/:venueId/edit" element={<VenueEdit />} />
-                    <Route path="/venue/:venueId/edit" element={<VenueDetails />} />
+                    <Route path="/venue/:venueId/edit" element={<VenueEdit />} />
                     <Route path="/venue/:venueId/delete" element={<VenueDelete />} />
                     <Route path="/venue/add" element={<VenueAdd />} />
+
+                    <Route path="/country" element={<AllCountries />} />
+                    <Route path="/country/:countryId/details" element={<CountryDetails />} />
+                    <Route path="/country/:countryId/edit" element={<CountryEdit />} />
+                    <Route path="/country/:countryId/delete" element={<CountryDelete />} />
+                    <Route path="/country/add" element={<CountryAdd />} />
+
 
 
 

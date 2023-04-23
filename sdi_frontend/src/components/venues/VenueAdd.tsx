@@ -18,7 +18,7 @@ export const VenueAdd = () => {
     const [venue, setVenue] = useState<Venue>({
         venue_name: "",
         venue_adress: "",
-        host_city_idd: 1,
+        host_city_id_id: 1,
         capacity: 1,
         rating: 1,
     });
@@ -66,7 +66,7 @@ export const VenueAdd = () => {
         <Container>
             <Card>
                 <CardContent>
-                    <IconButton component={Link} sx={{ mr: 3 }} to={`/venues/`}>
+                    <IconButton component={Link} sx={{ mr: 3 }} to={`/venue/`}>
                         <ArrowBackIcon />
                     </IconButton>{" "}
                     <form onSubmit={addVenue}>
@@ -98,7 +98,7 @@ export const VenueAdd = () => {
                             onChange={(event, value) => {
                                 if (value) {
                                     console.log(value);
-                                    setVenue({ ...venue, host_city_idd: value.id });
+                                    setVenue({ ...venue, host_city_id_id: value.id });
                                 }
                             }}
                         />

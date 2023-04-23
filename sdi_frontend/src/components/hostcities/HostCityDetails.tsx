@@ -7,22 +7,26 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {HostCity} from "../../models/HostCity";
+import axios from "axios";
 
 export const HostCityDetails = () => {
     const { hostCityId } = useParams();
     const [hostcity, setHostCity] = useState<HostCity>();
 
+    // useEffect(() => {
+    //     const fetchHostCity = async () => {
+    //         const response = await fetch(`${BACKEND_API_URL}/hostcity/${hostCityId}`);
+    //         const hostcity = await response.json();
+    //         setHostCity(hostcity);
+    //     };
+    //     fetchHostCity();
+    // }, [hostCityId]);
+
     useEffect(() => {
-        const fetchHostCity = async () => {
-            // TODO: use axios instead of fetch
-            // TODO: handle errors
-            // TODO: handle loading state
-            const response = await fetch(`${BACKEND_API_URL}/hostcity/${hostCityId}`);
-            const hostcity = await response.json();
-            setHostCity(hostcity);
-        };
-        fetchHostCity();
-    }, [hostCityId]);
+        axios.get(`${BACKEND_API_URL}/hostcity/${hostCityId}`)
+            .then((response) => response.data)
+            .then((data) => {setHostCity(data);})
+    },[hostCityId]);
 
     return (
         <Container>

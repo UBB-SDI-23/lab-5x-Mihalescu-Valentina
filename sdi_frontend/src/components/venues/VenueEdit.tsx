@@ -7,30 +7,29 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { BACKEND_API_URL } from "../../constants";
-import {HostCity} from "../../models/HostCity";
 import {Venue} from "../../models/Venue";
+
 export const VenueEdit = () => {
     const navigate = useNavigate();
     const { venueId } = useParams();
-    const [loading, setLoading] = useState(false);
 
     const [venue, setVenue] = useState<Venue>({
+        id: 1,
         venue_name: "",
         venue_adress: "",
-        host_city_idd: 1,
+        host_city_id_id: 1,
         capacity: 1,
         rating: 1,
     });
 
     useEffect(() => {
-        setLoading(true);
-        fetch(`${BACKEND_API_URL}/venue/`)
-            .then((response) => response.json())
-            .then((data) => {
-                setVenue(data);
-                setLoading(false);
-            });
-    }, []);
+        const fetchVenue = async () => {
+            const response = await fetch(`${BACKEND_API_URL}/venue/${venueId}/`);
+            const venue = await response.json();
+            setVenue(venue);
+        };
+        fetchVenue();
+    }, [venueId]);
 
     const updateVenue = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
@@ -56,6 +55,7 @@ export const VenueEdit = () => {
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
+                            value={venue.venue_name}
                             onChange={(event) => setVenue({ ...venue, venue_name: event.target.value })}
                         />
                         <TextField
@@ -64,6 +64,7 @@ export const VenueEdit = () => {
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
+                            value={venue.venue_adress}
                             onChange={(event) => setVenue({ ...venue, venue_adress: event.target.value })}
                         />
 
@@ -78,21 +79,10 @@ export const VenueEdit = () => {
                         {/*    onChange={(event, value) => {*/}
                         {/*        if (value) {*/}
                         {/*            console.log(value);*/}
-                        {/*            setVenue({ ...venue, host_city_id: value.id });*/}
+                        {/*            setVenue({ ...venue, host_city_idd: value.id });*/}
                         {/*        }*/}
                         {/*    }}*/}
                         {/*/>*/}
-
-                        <TextField
-                            id="host_city_name"
-                            label="Host City"
-                            variant="outlined"
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            onChange={(event) => setVenue({ ...venue,host_city_idd: parseInt(event.target.value) })}
-                        />
-
-
 
                         <TextField
                             id="capacity"
@@ -100,6 +90,7 @@ export const VenueEdit = () => {
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
+                            value={venue.capacity}
                             onChange={(event) => setVenue({ ...venue, capacity: parseInt(event.target.value) })}
                         />
 
@@ -109,11 +100,12 @@ export const VenueEdit = () => {
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
-                            onChange={(event) => setVenue({ ...venue, capacity: parseFloat(event.target.value) })}
+                            value={venue.rating}
+                            onChange={(event) => setVenue({ ...venue, rating: parseFloat(event.target.value) })}
                         />
 
 
-                        <Button type="submit">Update HostCity</Button>
+                        <Button type="submit">Update Venue</Button>
                     </form>
                 </CardContent>
                 <CardActions></CardActions>

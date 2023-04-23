@@ -43,6 +43,16 @@ export const AppMenu = () => {
                         startIcon={<LocalLibraryIcon />}>
                         Venues
                     </Button>
+
+                    <Button
+                        variant={path.startsWith("/country") ? "outlined" : "text"}
+                        to="/country"
+                        component={Link}
+                        color="inherit"
+                        sx={{ mr: 5 }}
+                        startIcon={<LocalLibraryIcon />}>
+                        Countries
+                    </Button>
                 </Toolbar>
             </AppBar>
         </Box>
