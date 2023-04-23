@@ -61,6 +61,11 @@ import {CountryDelete} from "./components/countries/CountryDelete";
 import {CountryAdd} from "./components/countries/CountryAdd";
 import {AllCountries} from "./components/countries/AllCountries";
 import {CountryEdit} from "./components/countries/CountryEdit";
+import {AllEditions} from "./components/editions/AllEditions";
+import {EditionEdit} from "./components/editions/EditionEdit";
+import {EditionDetails} from "./components/editions/EditionDetails";
+import {EditionDelete} from "./components/editions/EditionDelete";
+import {EditionAdd} from "./components/editions/EditionAdd";
 
 function App() {
     return (
@@ -88,6 +93,12 @@ function App() {
                     <Route path="/country/:countryId/edit" element={<CountryEdit />} />
                     <Route path="/country/:countryId/delete" element={<CountryDelete />} />
                     <Route path="/country/add" element={<CountryAdd />} />
+
+                    <Route path="/edition" element={<AllEditions />} />
+                    <Route path="/edition/:editionId/details" element={<EditionDetails />} />
+                    <Route path="/edition/:editionId/edit" element={<EditionEdit />} />
+                    <Route path="/edition/:editionId/delete" element={<EditionDelete />} />
+                    <Route path="/edition/add" element={<EditionAdd />} />
 
 
 

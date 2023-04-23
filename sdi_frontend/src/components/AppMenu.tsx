@@ -53,6 +53,16 @@ export const AppMenu = () => {
                         startIcon={<LocalLibraryIcon />}>
                         Countries
                     </Button>
+
+                    <Button
+                        variant={path.startsWith("/edition") ? "outlined" : "text"}
+                        to="/edition"
+                        component={Link}
+                        color="inherit"
+                        sx={{ mr: 5 }}
+                        startIcon={<LocalLibraryIcon />}>
+                        Editions
+                    </Button>
                 </Toolbar>
             </AppBar>
         </Box>
