@@ -28,7 +28,7 @@ export const EditionDetails = () => {
                     </IconButton>{" "}
                     <h1>Edition Details</h1>
                     <p>Edition year: {edition?.edition_year}</p>
-                    <p>The date of the final: {edition?.final_date.toDateString()}</p>
+                    <p>The date of the final: {edition?.final_date.toString()}</p>
                     <p>Motto: {edition?.motto}</p>
                     <p>Venue: {edition?.venue_id?.venue_name}</p>
                     <p>The countries that participated in the edition:</p>
