@@ -1,1 +1,0 @@
-export  const BACKEND_API_URL = "http://16.16.156.17/eurovision";
