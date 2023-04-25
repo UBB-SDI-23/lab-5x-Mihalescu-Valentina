@@ -67,10 +67,11 @@ export const AllVenues = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>#</TableCell>
-                                <TableCell align="right">Name</TableCell>
+                                <TableCell align="left">Name</TableCell>
                                 <TableCell align="right">Adress</TableCell>
-                                <TableCell align="center">Capacity</TableCell>
-                                <TableCell align="center">Rating</TableCell>
+                                <TableCell align="right">Capacity</TableCell>
+                                <TableCell align="right">Rating</TableCell>
+                                <TableCell align="center">Operations</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -85,11 +86,6 @@ export const AllVenues = () => {
                                         </Link>
                                     </TableCell>
                                     <TableCell align="right">{venue?.venue_adress}</TableCell>
-                                    {/*<TableCell component="th" scope="row">*/}
-                                    {/*    <Link to={`/hostcity/${venue.host_city_idd}/details`} title="View venue details">*/}
-                                    {/*        {venue?.host_city_idd}*/}
-                                    {/*    </Link>*/}
-                                    {/*</TableCell>*/}
 
                                     <TableCell align="right">{venue?.capacity}</TableCell>
                                     <TableCell align="right">{venue?.rating}</TableCell>

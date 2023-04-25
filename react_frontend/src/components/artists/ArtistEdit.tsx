@@ -76,7 +76,7 @@ export const ArtistEdit = () => {
                             value={artist.description}
                             onChange={(event) => setArtist({ ...artist, description: event.target.value })}
                         />
-                        {/*Autocomplete for the country field!!*/}
+
 
                         <Button type="submit">Update Artist</Button>
                     </form>

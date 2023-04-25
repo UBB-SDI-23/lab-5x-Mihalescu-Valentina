@@ -132,6 +132,7 @@ export const AllHostCities = () => {
                                 </Tooltip>
                             </IconButton>
                         </TableCell>
+                        <TableCell align="center">Operations</TableCell>
 
                     </TableRow>
                 </TableHead>

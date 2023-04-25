@@ -58,6 +58,7 @@ export const AllEditions = () => {
                                 <TableCell align="right">Year</TableCell>
                                 <TableCell align="right">Final date</TableCell>
                                 <TableCell align="right">Motto</TableCell>
+                                <TableCell align="right">Operations</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

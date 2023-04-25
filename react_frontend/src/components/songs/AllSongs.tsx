@@ -19,77 +19,77 @@ import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddIcon from "@mui/icons-material/Add";
-import {Country} from "../../models/Country";
+import {Song} from "../../models/Song";
 
-export const AllCountries = () => {
+
+
+export const AllSongs = () => {
     const [loading, setLoading] = useState(false);
-    const [countries, setCountries] = useState<Country[]>([]);
+    const [songs, setSongs] = useState<Song[]>([]);
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/country`)
+        fetch(`${BACKEND_API_URL}/song`)
             .then((response) => response.json())
             .then((data) => {
-                setCountries(data);
+                setSongs(data);
                 setLoading(false);
             });
     }, []);
 
     return (
         <Container>
-            <h1>All countries</h1>
+            <h1>All songs</h1>
 
             {loading && <CircularProgress />}
-            {!loading && countries.length === 0 && <p>No countries found</p>}
+            {!loading && songs.length === 0 && <p>No songs found</p>}
             {!loading && (
-                <IconButton component={Link} sx={{ mr: 3 }} to={`/country/add`}>
-                    <Tooltip title="Add a new country" arrow>
+                <IconButton component={Link} sx={{ mr: 3 }} to={`/song/add`}>
+                    <Tooltip title="Add a new song" arrow>
                         <AddIcon color="primary" />
                     </Tooltip>
                 </IconButton>
             )}
-            {!loading && countries.length > 0 && (
+            {!loading && songs.length > 0 && (
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>#</TableCell>
                                 <TableCell align="right">Name</TableCell>
-                                <TableCell align="right">Year of entrance</TableCell>
-                                <TableCell align="right">Capital</TableCell>
-                                <TableCell align="center">Quality factor</TableCell>
-                                <TableCell align="center">Operations</TableCell>
+                                <TableCell align="right">Release Date</TableCell>
+                                <TableCell align="right">Album name</TableCell>
+                                <TableCell align="right">Operations</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {countries.map((country, index) => (
-                                <TableRow key={country.id}>
+                            {songs.map((song, index) => (
+                                <TableRow key={song.id}>
                                     <TableCell component="th" scope="row">
                                         {index + 1}
                                     </TableCell>
-                                    <TableCell component="th" scope="row">
-                                        <Link to={`/country/${country.id}/details`} title="View course details">
-                                            {country.country_name}
+                                    <TableCell align="right" component="th" scope="row">
+                                        <Link to={`/song/${song.id}/details`} title="View artist details">
+                                            {song.song_name}
                                         </Link>
                                     </TableCell>
-                                    <TableCell align="right">{country.year_of_entrance}</TableCell>
-                                    <TableCell align="right">{country.country_capital}</TableCell>
-                                    <TableCell align="right">{country.quality_factor}</TableCell>
+                                    <TableCell align="right">{song.release_date}</TableCell>
+                                    <TableCell align="right">{song.album_name}</TableCell>
                                     <TableCell align="right">
                                         <IconButton
                                             component={Link}
                                             sx={{ mr: 3 }}
-                                            to={`/country/${country.id}/details`}>
-                                            <Tooltip title="View country details" arrow>
+                                            to={`/song/${song.id}/details`}>
+                                            <Tooltip title="View song details" arrow>
                                                 <ReadMoreIcon color="primary" />
                                             </Tooltip>
                                         </IconButton>
 
-                                        <IconButton component={Link} sx={{ mr: 3 }} to={`/country/${country.id}/edit`}>
+                                        <IconButton component={Link} sx={{ mr: 3 }} to={`/song/${song.id}/edit`}>
                                             <EditIcon />
                                         </IconButton>
 
-                                        <IconButton component={Link} sx={{ mr: 3 }} to={`/country/${country.id}/delete`}>
+                                        <IconButton component={Link} sx={{ mr: 3 }} to={`/song/${song.id}/delete`}>
                                             <DeleteForeverIcon sx={{ color: "red" }} />
                                         </IconButton>
                                     </TableCell>

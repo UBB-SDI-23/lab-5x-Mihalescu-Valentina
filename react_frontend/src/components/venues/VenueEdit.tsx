@@ -15,7 +15,6 @@ export const VenueEdit = () => {
         id: 1,
         venue_name: "",
         venue_adress: "",
-        host_city_id_id: 1,
         capacity: 1,
         rating: 1,
     });

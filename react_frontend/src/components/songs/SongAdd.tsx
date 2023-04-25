@@ -16,30 +16,30 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { debounce } from "lodash";
-import {Artist} from "../../models/Artist";
+import {Song} from "../../models/Song";
 import {Venue} from "../../models/Venue";
-import {Country} from "../../models/Country";
+import {Artist} from "../../models/Artist";
 
 
-export const ArtistAdd = () => {
+export const SongAdd = () => {
     const navigate = useNavigate();
 
-    const [artist, setArtist] = useState<Artist>({
-        artist_name: "",
-        artist_age: 1,
-        description: "",
-        id:1,
+    const [song, setSong] = useState<Song>({
+        id: 1,
+        song_name: "",
+        release_date:"",
+        album_name: "",
     });
 
-    const [countries, setCountries] = useState<Country[]>([]);
+    const [artists, setArtists] = useState<Artist[]>([]);
 
     const fetchSuggestions = async (query: string) => {
         try {
-            const response = await axios.get<Country[]>(
-                `${BACKEND_API_URL}/country/autocomplete?query=${query}`
+            const response = await axios.get<Artist[]>(
+                `${BACKEND_API_URL}/artist/autocomplete?query=${query}`
             );
             const data = await response.data;
-            setCountries(data);
+            setArtists(data);
         } catch (error) {
             console.error("Error fetching suggestions:", error);
         }
@@ -61,11 +61,11 @@ export const ArtistAdd = () => {
         }
     };
 
-    const addArtist = async (event: { preventDefault: () => void }) => {
+    const addSong = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         try {
-            await axios.post(`${BACKEND_API_URL}/artist/`, artist);
-            navigate("/artist");
+            await axios.post(`${BACKEND_API_URL}/song/`, song);
+            navigate("/song");
         } catch (error) {
             console.log(error);
         }
@@ -76,47 +76,47 @@ export const ArtistAdd = () => {
         <Container>
             <Card>
                 <CardContent>
-                    <IconButton component={Link} sx={{ mr: 3 }} to={`/artist`}>
+                    <IconButton component={Link} sx={{ mr: 3 }} to={`/song`}>
                         <ArrowBackIcon />
                     </IconButton>{" "}
-                    <form onSubmit={addArtist}>
+                    <form onSubmit={addSong}>
                         <TextField
-                            id="artist_name"
+                            id="song_name"
                             label="Name"
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
-                            onChange={(event) => setArtist({ ...artist, artist_name: event.target.value })}
+                            onChange={(event) => setSong({ ...song, song_name: event.target.value })}
                         />
                         <TextField
-                            id="artist_age"
-                            label="The age of the artist"
+                            id="release_date"
+                            label="The date of the relase"
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
-                            onChange={(event) => setArtist({ ...artist, artist_age: parseInt(event.target.value) })}
+                            onChange={(event) => setSong({ ...song, release_date: event.target.value })}
                         />
 
                         <TextField
-                            id="description"
-                            label="description"
+                            id="album_name"
+                            label="Album name"
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
-                            onChange={(event) => setArtist({ ...artist, description: event.target.value })}
+                            onChange={(event) => setSong({ ...song, album_name: event.target.value })}
                         />
 
                         <Autocomplete
-                            id="country"
-                            options={countries}
-                            getOptionLabel={(option) => `${option.country_name}`}
-                            renderInput={(params) => <TextField {...params} label="Country" variant="outlined" />}
+                            id="artist_id"
+                            options={artists}
+                            renderInput={(params) => <TextField {...params} label="Artist" variant="outlined"/>}
+                            getOptionLabel={(option) => `${option.artist_name}`}
                             filterOptions={(x) => x}
                             onInputChange={handleInputChange}
                             onChange={(event, value) => {
                                 if (value) {
                                     console.log(value);
-                                    setArtist({ ...artist, country: value.id });
+                                    setSong({...song, artist_id: value.id});
                                 }
                             }}
                         />
@@ -124,7 +124,7 @@ export const ArtistAdd = () => {
 
 
 
-                        <Button type="submit">Add Country</Button>
+                        <Button type="submit">Add Song</Button>
                     </form>
                 </CardContent>
                 <CardActions></CardActions>

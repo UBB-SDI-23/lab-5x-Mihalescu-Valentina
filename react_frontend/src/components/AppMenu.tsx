@@ -73,6 +73,26 @@ export const AppMenu = () => {
                         startIcon={<LocalLibraryIcon />}>
                         Artists
                     </Button>
+
+                    <Button
+                        variant={path.startsWith("/song") ? "outlined" : "text"}
+                        to="/song"
+                        component={Link}
+                        color="inherit"
+                        sx={{ mr: 5 }}
+                        startIcon={<LocalLibraryIcon />}>
+                        Songs
+                    </Button>
+
+                    <Button
+                        variant={path.startsWith("/idss") ? "outlined" : "text"}
+                        to="/idss"
+                        component={Link}
+                        color="inherit"
+                        sx={{ mr: 5 }}
+                        startIcon={<LocalLibraryIcon />}>
+                        Ids
+                    </Button>
                 </Toolbar>
             </AppBar>
         </Box>

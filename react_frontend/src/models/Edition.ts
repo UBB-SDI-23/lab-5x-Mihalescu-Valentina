@@ -6,7 +6,7 @@ export interface Edition {
     edition_year : number;
     final_date : Date;
     motto : string;
-    venue_id? : Venue;
+    venue_id? : Venue | number;
     countries? : Country[];
 
 }

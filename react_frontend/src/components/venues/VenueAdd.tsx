@@ -1,13 +1,11 @@
 import {Button, Card, CardActions, CardContent, IconButton, TextField, Autocomplete} from "@mui/material";
-import { Container } from "@mui/system";
+import {Container} from "@mui/system";
 import {useCallback, useEffect, useState} from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-import { HostCity } from "../../models/HostCity";
-import { BACKEND_API_URL } from "../../constants";
+import {HostCity} from "../../models/HostCity";
+import {BACKEND_API_URL} from "../../constants";
 import axios from "axios";
 import {Venue} from "../../models/Venue";
 import {debounce} from "lodash"
@@ -18,9 +16,9 @@ export const VenueAdd = () => {
     const [venue, setVenue] = useState<Venue>({
         venue_name: "",
         venue_adress: "",
-        host_city_id_id: 1,
         capacity: 1,
         rating: 1,
+        id:1,
     });
 
     const [hostcities, setHostCities] = useState<HostCity[]>([]);
@@ -47,8 +45,8 @@ export const VenueAdd = () => {
     const addVenue = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         try {
-            await axios.post(`${BACKEND_API_URL}/venues/`, venue);
-            navigate("/venues/");
+            await axios.post(`${BACKEND_API_URL}/venue/`, venue);
+            navigate("/venue/");
         } catch (error) {
             console.log(error);
         }
@@ -66,8 +64,8 @@ export const VenueAdd = () => {
         <Container>
             <Card>
                 <CardContent>
-                    <IconButton component={Link} sx={{ mr: 3 }} to={`/venue/`}>
-                        <ArrowBackIcon />
+                    <IconButton component={Link} sx={{mr: 3}} to={`/venue/`}>
+                        <ArrowBackIcon/>
                     </IconButton>{" "}
                     <form onSubmit={addVenue}>
                         <TextField
@@ -75,41 +73,43 @@ export const VenueAdd = () => {
                             label="Name"
                             variant="outlined"
                             fullWidth
-                            sx={{ mb: 2 }}
-                            onChange={(event) => setVenue({ ...venue, venue_name: event.target.value })}
+                            sx={{mb: 2}}
+                            onChange={(event) => setVenue({...venue, venue_name: event.target.value})}
                         />
                         <TextField
                             id="venue_adress"
                             label="Adress"
                             variant="outlined"
                             fullWidth
-                            sx={{ mb: 2 }}
-                            onChange={(event) => setVenue({ ...venue, venue_adress: event.target.value })}
+                            sx={{mb: 2}}
+                            onChange={(event) => setVenue({...venue, venue_adress: event.target.value})}
                         />
 
 
                         <Autocomplete
                             id="host_city_id"
                             options={hostcities}
+                            renderInput={(params) => <TextField {...params} label="HostCity" variant="outlined"/>}
                             getOptionLabel={(option) => `${option.host_city_name}`}
-                            renderInput={(params) => <TextField {...params} label="HostCity" variant="outlined" />}
                             filterOptions={(x) => x}
                             onInputChange={handleInputChange}
                             onChange={(event, value) => {
                                 if (value) {
                                     console.log(value);
-                                    setVenue({ ...venue, host_city_id_id: value.id });
+                                    setVenue({...venue, host_city_id: value.id});
                                 }
                             }}
                         />
+
+
 
                         <TextField
                             id="capacity"
                             label="Capacity"
                             variant="outlined"
                             fullWidth
-                            sx={{ mb: 2 }}
-                            onChange={(event) => setVenue({ ...venue, capacity: parseInt(event.target.value) })}
+                            sx={{mb: 2}}
+                            onChange={(event) => setVenue({...venue, capacity: parseInt(event.target.value)})}
                         />
 
                         <TextField
@@ -117,8 +117,8 @@ export const VenueAdd = () => {
                             label="Rating"
                             variant="outlined"
                             fullWidth
-                            sx={{ mb: 2 }}
-                            onChange={(event) => setVenue({ ...venue, capacity: parseFloat(event.target.value) })}
+                            sx={{mb: 2}}
+                            onChange={(event) => setVenue({...venue, capacity: parseFloat(event.target.value)})}
                         />
 
 

@@ -28,6 +28,16 @@ import {AllArtists} from "./components/artists/AllArtists";
 import {ArtistEdit} from "./components/artists/ArtistEdit";
 import {ArtistDelete} from "./components/artists/ArtistDelete";
 import {ArtistAdd} from "./components/artists/ArtistAdd";
+import {AllSongs} from "./components/songs/AllSongs";
+import {SongDetails} from "./components/songs/SongDetails";
+import {SongDelete} from "./components/songs/SongDelete";
+import {SongAdd} from "./components/songs/SongAdd";
+import {SongEdit} from "./components/songs/SongEdit";
+import {AllIds} from "./components/ids/AllIds";
+import {IdsDetails} from "./components/ids/IdsDetails";
+import {IdsEdit} from "./components/ids/IdsEdit";
+import {IdsDelete} from "./components/ids/IdsDelete";
+import {IdsAdd} from "./components/ids/IdsAdd";
 
 function App() {
     return (
@@ -67,6 +77,18 @@ function App() {
                     <Route path="/artist/:artistId/edit" element={<ArtistEdit />} />
                     <Route path="/artist/:artistId/delete" element={<ArtistDelete />} />
                     <Route path="/artist/add" element={<ArtistAdd />} />
+
+                    <Route path="/song" element={<AllSongs />} />
+                    <Route path="/song/:songId/details" element={<SongDetails />} />
+                    <Route path="/song/:songId/edit" element={<SongEdit />} />
+                    <Route path="/song/:songId/delete" element={<SongDelete />} />
+                    <Route path="/song/add" element={<SongAdd />} />
+
+                    <Route path="/idss" element={<AllIds />} />
+                    <Route path="/idss/:idsId/details" element={<IdsDetails />} />
+                    <Route path="/idss/:idsId/edit" element={<IdsEdit />} />
+                    <Route path="/idss/:idsId/delete" element={<IdsDelete />} />
+                    <Route path="/ids/add" element={<IdsAdd />} />
 
 
 
