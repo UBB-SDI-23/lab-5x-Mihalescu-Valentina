@@ -15,12 +15,9 @@ class HostCitySerializer(serializers.ModelSerializer):
 
 
 class VenueSerializer(serializers.ModelSerializer):
-    host_city_id = HostCitySerializer(read_only=True)
-    host_city_id_id = serializers.IntegerField(write_only=True)
-
     class Meta:
         model = Venue
-        fields = ('id', 'venue_name', 'venue_adress', 'capacity', 'rating', 'host_city_id', 'host_city_id_id')
+        fields = ('id', 'venue_name', 'venue_adress', 'capacity', 'rating', 'host_city_id')
 
 
 class EditionSerializer(serializers.ModelSerializer):
@@ -63,7 +60,7 @@ class HostCityDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = HostCity
         fields = (
-        'id', 'host_city_name', 'host_city_population', 'host_city_mayor', 'is_capital', 'quality_factor', 'venues')
+            'id', 'host_city_name', 'host_city_population', 'host_city_mayor', 'is_capital', 'quality_factor', 'venues')
 
 
 class ArtistSerializer(serializers.ModelSerializer):
@@ -96,8 +93,21 @@ class ArtistDetailsSerializer(serializers.ModelSerializer):
 
 
 class IdsSerializer(serializers.ModelSerializer):
-    edition_id = serializers.IntegerField()
-    country_id = serializers.IntegerField()
+    class Meta:
+        model = Ids
+        fields = ('id', 'edition', 'country', 'place', 'points')
+
+class IdsDetailsSerializer(serializers.ModelSerializer):
+    edition = EditionSerializer(read_only=True)
+    country = CountrySerializer(read_only=True)
+    class Meta:
+        model = Ids
+        fields = ('id', 'edition', 'country', 'place', 'points')
+
+
+class IdsSerializerPost(serializers.ModelSerializer):
+    edition_id = serializers.IntegerField(read_only=True)
+    country_id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Ids
