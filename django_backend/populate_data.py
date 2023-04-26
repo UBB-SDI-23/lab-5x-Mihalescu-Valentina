@@ -4,7 +4,7 @@ import uuid
 
 import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangoProject.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_backend.settings')
 
 django.setup()
 
