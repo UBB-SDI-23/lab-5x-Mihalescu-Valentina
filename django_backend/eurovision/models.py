@@ -7,9 +7,9 @@ from datetime import *
 # Create your models here.
 
 class Country(models.Model):
-    country_name = models.CharField(max_length=150, unique=True)
+    country_name = models.CharField(max_length=150)
     year_of_entrance = models.IntegerField()
-    country_capital = models.CharField(max_length=150, unique=True)
+    country_capital = models.CharField(max_length=150)
     country_hymn = models.CharField(max_length=150)
     quality_factor = models.IntegerField()
     editions = models.ManyToManyField('Edition', through='Ids')
@@ -20,7 +20,7 @@ class Country(models.Model):
 
 
 class HostCity(models.Model):
-    host_city_name = models.CharField(max_length=150, unique=True)
+    host_city_name = models.CharField(max_length=150)
     host_city_population = models.IntegerField()
     host_city_mayor = models.CharField(max_length=150)
     is_capital = models.BooleanField()
@@ -32,7 +32,7 @@ class HostCity(models.Model):
 
 class Venue(models.Model):
     venue_name = models.CharField(max_length=150)
-    venue_adress = models.CharField(max_length=200, unique=True)
+    venue_adress = models.CharField(max_length=200)
     host_city_id = models.ForeignKey(HostCity, related_name='venues', on_delete=models.CASCADE)
     capacity = models.IntegerField()
     rating = models.FloatField()
