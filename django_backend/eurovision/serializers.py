@@ -105,13 +105,7 @@ class IdsDetailsSerializer(serializers.ModelSerializer):
         fields = ('id', 'edition', 'country', 'place', 'points')
 
 
-class IdsSerializerPost(serializers.ModelSerializer):
-    edition_id = serializers.IntegerField(read_only=True)
-    country_id = serializers.IntegerField(read_only=True)
 
-    class Meta:
-        model = Ids
-        fields = ('id', 'edition_id', 'country_id', 'place', 'points')
 
 
 class CountryDetailsSerializer(serializers.ModelSerializer):
