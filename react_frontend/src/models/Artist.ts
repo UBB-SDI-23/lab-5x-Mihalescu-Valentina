@@ -6,7 +6,10 @@ export interface Artist {
     artist_name: string;
     artist_age: number;
     description: string;
-    country? : Country | number;
+    country? : number | Country;
+
+
+
 
 
 }

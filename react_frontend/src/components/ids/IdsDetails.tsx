@@ -27,8 +27,10 @@ export const IdsDetails = () => {
                         <ArrowBackIcon />
                     </IconButton>{" "}
                     <h1>Details</h1>
-                    <p>Edition year: {ids?.edition?.edition_year}</p>
-                    <p>Country name: {ids?.country?.country_name}</p>
+                    {/*<p>Edition year: {ids?.edition?.edition_year}</p>*/}
+                    <p>Edition: {typeof ids?.edition === 'object' ? ids?.edition.edition_year : 1}</p>
+                    {/*<p>Country name: {ids?.country?.country_name}</p>*/}
+                    <p>Country: {typeof ids?.country === 'object' ? ids?.country.country_name : ''}</p>
                     <p>Place: {ids?.place}</p>
                     <p>Points: {ids?.points}</p>
 

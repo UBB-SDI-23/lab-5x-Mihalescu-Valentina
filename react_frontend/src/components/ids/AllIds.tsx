@@ -72,10 +72,12 @@ export const AllIds = () => {
                                     </TableCell>
                                     <TableCell align="right" component="th" scope="row">
                                         <Link to={`/idss/${ids.id}/details`} title="View details">
-                                            {ids.edition?.edition_year}
+                                            {/*{ids.edition?.edition_year}*/}
+                                            <TableCell align ="right">{typeof ids?.edition === 'object' ? ids?.edition.edition_year : 1}</TableCell>
                                         </Link>
                                     </TableCell>
-                                    <TableCell align="right">{ids.country?.country_name}</TableCell>
+                                    {/*<TableCell align="right">{ids.country?.country_name}</TableCell>*/}
+                                    <TableCell align ="right">{typeof ids?.country === 'object' ? ids?.country.country_name : ''}</TableCell>
                                     <TableCell align="right">{ids.place}</TableCell>
                                     <TableCell align="right">{ids.points}</TableCell>
                                     <TableCell align="right">

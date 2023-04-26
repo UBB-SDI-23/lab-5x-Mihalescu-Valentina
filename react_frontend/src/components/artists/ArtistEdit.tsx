@@ -20,6 +20,7 @@ export const ArtistEdit = () => {
         artist_age: 1,
         description: "",
         id:1,
+        country_id:1 ,
     });
 
     useEffect(() => {

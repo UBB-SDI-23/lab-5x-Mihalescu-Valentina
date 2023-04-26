@@ -30,7 +30,8 @@ export const ArtistDetails = () => {
                     <p>Artist name: {artist?.artist_name}</p>
                     <p>Artist age: {artist?.artist_age}</p>
                     <p>Description: {artist?.description}</p>
-                    <p>Country: {artist?.country?.country_name}</p>
+                    {/*<p>Country: {artist?.country?.country_name}</p>*/}
+                    <p>Country: {typeof artist?.country === 'object' ? artist?.country.country_name : ''}</p>
 
                 </CardContent>
                 <CardActions>

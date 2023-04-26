@@ -30,7 +30,8 @@ export const EditionDetails = () => {
                     <p>Edition year: {edition?.edition_year}</p>
                     <p>The date of the final: {edition?.final_date.toString()}</p>
                     <p>Motto: {edition?.motto}</p>
-                    <p>Venue: {edition?.venue_id?.venue_name}</p>
+                    {/*<p>Venue: {edition?.venue_id?.venue_name}</p>*/}
+                    <p>Venue: {typeof edition?.venue_id === 'object' ? edition?.venue_id.venue_name : ''}</p>
                     <p>The countries that participated in the edition:</p>
                     <ul>
                         {edition?.countries?.map((country) => (

@@ -4,8 +4,8 @@ import {Country} from "./Country";
 
 export interface Ids {
     id?: number;
-    edition? :Edition | number;
-    country? : Country | number;
+    edition? :number | Edition;
+    country? : number | Country;
     place : number;
     points : number;
 }
