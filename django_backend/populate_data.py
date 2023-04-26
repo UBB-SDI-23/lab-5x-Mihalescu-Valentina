@@ -3,7 +3,6 @@ import os
 import uuid
 
 import django
-from faker.providers import DynamicProvider
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangoProject.settings')
 
