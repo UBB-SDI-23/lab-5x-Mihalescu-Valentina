@@ -102,7 +102,7 @@ def hostcity_insert_data():
     for i in range(NO_RECORDS):
         host_city_name = fake.city()[:50]
         host_city_population = random.randint(1000,5000000)
-        host_city_mayor = fake.find_name()[:20]
+        host_city_mayor = fake.findName()[:20]
         is_capital = bool(random.getrandbits(1))
         quality_factor = random.randint(10,10000)
         batch_values += f"('{host_city_name}', '{host_city_population}', '{host_city_mayor}', '{is_capital}', '{quality_factor}'),"
