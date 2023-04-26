@@ -29,7 +29,8 @@ export const VenueDetails = () => {
                     <h1>Venue Details</h1>
                     <p>Venue Name: {venue?.venue_name}</p>
                     <p>Venue adress: {venue?.venue_adress}</p>
-                    <p>Host City name: {venue?.host_city_id?.host_city_name}</p>
+                    {/*<p>Host City name: {venue?.host_city_id?.host_city_name}</p>*/}
+                    <p>VHost City name: {typeof venue?.host_city_id === 'object' ? venue?.host_city_id.host_city_name : ''}</p>
                     <p>Capacity: {venue?.capacity}</p>
                     <p>Rating: {venue?.rating}</p>
                 </CardContent>

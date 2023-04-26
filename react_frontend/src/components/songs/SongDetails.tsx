@@ -30,7 +30,8 @@ export const SongDetails = () => {
                     <p>Song name: {song?.song_name}</p>
                     <p>Release date: {song?.release_date}</p>
                     <p>Album name: {song?.album_name}</p>
-                    <p>The name of the artist: {song?.artist_id?.artist_name}</p>
+                    {/*<p>The name of the artist: {song?.artist_id?.artist_name}</p>*/}
+                    <p>The name of the artist: {typeof song?.artist_id === 'object' ? song?.artist_id.artist_name : ''}</p>
 
                 </CardContent>
                 <CardActions>
