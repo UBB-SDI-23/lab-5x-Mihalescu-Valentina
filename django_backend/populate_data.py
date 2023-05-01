@@ -1,7 +1,6 @@
 import datetime
 import os
 import uuid
-
 import django
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_backend.settings')
@@ -174,16 +173,16 @@ def country_insert_data():
     print("Generating SQL queries for inserting data in the Country table...")
 
     for i in range(NO_RECORDS_INTERMEDIARY):
-
-        country_name= fake.country()
+        country_name= fake.country()[:50]
+        country_name = country_name.replace("'", "")
         year_of_entrance = random.randint(1960,2023)
-        country_capital = fake.city()
+        country_capital = fake.city()[:50]
         quality_factor = random.randint(1,1000)
 
 
 
 
-        batch_values += f"({country_name}, '{year_of_entrance}', {country_capital}, {quality_factor}),"
+        batch_values += f"('{country_name}', '{year_of_entrance}', '{country_capital}', {quality_factor}),"
 
         if (i + 1) % 10000 == 0:
             file.write(
