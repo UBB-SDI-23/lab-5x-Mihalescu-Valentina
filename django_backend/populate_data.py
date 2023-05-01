@@ -239,7 +239,7 @@ def song_insert_data():
 
 
 
-        batch_values += f"('{song_name}', '{artist_id_id}', {release_date}, {album_name}),"
+        batch_values += f"('{song_name}', '{artist_id_id}', '{release_date}', '{album_name}'),"
 
         if (i + 1) % 10000 == 0:
             file.write(
