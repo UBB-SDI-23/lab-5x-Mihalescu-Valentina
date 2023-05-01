@@ -53,20 +53,20 @@ def drop_constraints_indexes():
 def add_constraints_indexes():
     file = open("add_constraints_indexes.sql", "w")
 
-    file.write("ALTER TABLE eurovision_hostcity ADD CONSTRAINT eurovision_hostcity_pkey;\n")
+    #file.write("ALTER TABLE eurovision_hostcity ADD CONSTRAINT eurovision_hostcity_pkey;\n")
 
-    file.write("ALTER TABLE eurovision_venue ADD CONSTRAINT eurovision_venue_pkey;\n")
+    #file.write("ALTER TABLE eurovision_venue ADD CONSTRAINT eurovision_venue_pkey;\n")
 
     file.write("ALTER TABLE eurovision_venue ADD CONSTRAINT eurovision_venue_host_city_id_id_dc4c2aff_fk_eurovisio;\n")
 
-    file.write("ALTER TABLE eurovision_edition ADD CONSTRAINT eurovision_edition_pkey;\n")
+    #file.write("ALTER TABLE eurovision_edition ADD CONSTRAINT eurovision_edition_pkey;\n")
 
     file.write(
         "ALTER TABLE eurovision_edition ADD CONSTRAINT eurovision_edition_venue_id_id_8c70153c_fk_eurovision_venue_id;\n")
 
-    file.write("ALTER TABLE eurovision_country ADD CONSTRAINT eurovision_country_pkey;\n")
+    #file.write("ALTER TABLE eurovision_country ADD CONSTRAINT eurovision_country_pkey;\n")
 
-    file.write("ALTER TABLE eurovision_artist ADD CONSTRAINT eurovision_artist_pkey;\n")
+    #file.write("ALTER TABLE eurovision_artist ADD CONSTRAINT eurovision_artist_pkey;\n")
 
     file.write(
         "ALTER TABLE eurovision_artist ADD CONSTRAINT  eurovision_artist_country_id_47605989_fk_eurovision_country_id;\n")
@@ -128,14 +128,14 @@ def venue_insert_data():
         nr = random.randint(1, 50)
         venue_name = "Venue"+str(nr)
         venue_adress = "Adress"+str(nr)
-        host_city_id = random.randint(1, NO_RECORDS)
+        host_city_id_id = random.randint(1, NO_RECORDS)
         capacity = random.randint(1,1000)
         rating = random.uniform(1.0, 5.0)
 
-        batch_values += f"('{nr}', '{venue_name}', '{venue_adress}', {host_city_id},{capacity}, {rating}),"
+        batch_values += f"('{nr}', '{venue_name}', '{venue_adress}', {host_city_id_id},{capacity}, {rating}),"
         if (i + 1) % 1000 == 0:
             file.write(
-                f"INSERT INTO eurovision_venue (venue_name, venue_adress,host_city_id, capacity, rating) VALUES {batch_values[:-1]};\n")
+                f"INSERT INTO eurovision_venue (venue_name, venue_adress,host_city_id_id, capacity, rating) VALUES {batch_values[:-1]};\n")
             batch_values = ""
 
     file.close()
@@ -153,13 +153,13 @@ def edition_insert_data():
         edition_year = random.randint(1960,2023)
         final_date = fake.date_between(datetime.date(1960, 1, 1), datetime.date(2023, 1, 1))
         motto = fake.text(max_nb_chars=50)
-        venue_id = random.randint(1, NO_RECORDS)
+        venue_id_id = random.randint(1, NO_RECORDS)
 
 
-        batch_values += f"('{edition_year}', '{final_date}', '{motto}', {venue_id}),"
+        batch_values += f"('{edition_year}', '{final_date}', '{motto}', {venue_id_id}),"
         if (i + 1) % 1000 == 0:
             file.write(
-                f"INSERT INTO eurovision_edition(edition_year, final_date, motto, venue_id) VALUES {batch_values[:-1]};\n")
+                f"INSERT INTO eurovision_edition(edition_year, final_date, motto, venue_id_id) VALUES {batch_values[:-1]};\n")
             batch_values = ""
 
     file.close()
@@ -206,16 +206,16 @@ def artist_insert_data():
         artist_name= fake.text(max_nb_chars=50)
         artist_age = random.randint(1,125)
         description = fake.paragraph(nb_sentences=3)
-        country = random.randint(1, NO_RECORDS)
+        country_id = random.randint(1, NO_RECORDS)
 
 
 
 
-        batch_values += f"('{artist_name}', '{artist_age}', {description}, {country}),"
+        batch_values += f"('{artist_name}', '{artist_age}', {description}, {country_id}),"
 
         if (i + 1) % 10000 == 0:
             file.write(
-                f"INSERT INTO eurovision_artist(artist_name, artist_age, description,country) VALUES {batch_values[:-1]};\n")
+                f"INSERT INTO eurovision_artist(artist_name, artist_age, description,country_id) VALUES {batch_values[:-1]};\n")
             batch_values = ""
 
     file.close()
@@ -230,7 +230,7 @@ def song_insert_data():
 
     for i in range(NO_RECORDS_INTERMEDIARY):
         song_name = fake.text(max_nb_chars=50)
-        artist_id = random.randint(1, NO_RECORDS)
+        artist_id_id = random.randint(1, NO_RECORDS)
         release_date = str(fake.date_between(datetime.date(1960, 1, 1), datetime.date(2023, 1, 1)))
         album_name = "Album"+song_name
 
@@ -238,11 +238,11 @@ def song_insert_data():
 
 
 
-        batch_values += f"('{song_name}', '{artist_id}', {release_date}, {album_name}),"
+        batch_values += f"('{song_name}', '{artist_id_id}', {release_date}, {album_name}),"
 
         if (i + 1) % 10000 == 0:
             file.write(
-                f"INSERT INTO eurovision_song(song_name, artist_id, release_date,album_name) VALUES {batch_values[:-1]};\n")
+                f"INSERT INTO eurovision_song(song_name, artist_id_id, release_date,album_name) VALUES {batch_values[:-1]};\n")
             batch_values = ""
 
     file.close()
@@ -258,16 +258,16 @@ def ids_insert_data():
 
     for i in range(NO_RECORDS_INTERMEDIARY):
 
-        country = random.randint(1, NO_RECORDS)
-        edition = random.randint(1, NO_RECORDS)
+        country_id= random.randint(1, NO_RECORDS)
+        edition_id = random.randint(1, NO_RECORDS)
         place = random.randint(1,30)
         points = random.randint(1,1000)
 
-        batch_values += f"('{country}', '{edition}', {place}, {points}),"
+        batch_values += f"('{country_id}', '{edition_id}', {place}, {points}),"
 
         if (i + 1) % 10000 == 0:
             file.write(
-                f"INSERT INTO eurovision_ids(country, edition, place,points) VALUES {batch_values[:-1]};\n")
+                f"INSERT INTO eurovision_ids(country_id, edition_id, place,points) VALUES {batch_values[:-1]};\n")
             batch_values = ""
 
     file.close()
@@ -276,9 +276,10 @@ def ids_insert_data():
 if __name__ == '__main__':
     #drop_constraints_indexes()
     add_constraints_indexes()
-    hostcity_insert_data()
+    #hostcity_insert_data()
     venue_insert_data()
     edition_insert_data()
+    country_insert_data()
     artist_insert_data()
     song_insert_data()
     ids_insert_data()
