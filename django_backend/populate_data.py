@@ -186,7 +186,6 @@ def country_insert_data():
         batch_values += f"('{country_name}', '{year_of_entrance}', {country_capital}, {quality_factor}),"
 
         if (i + 1) % 10000 == 0:
-            print(i)
             file.write(
                 f"INSERT INTO eurovision_country(country_name, year_of_entrance, country_capital,quality_factor) VALUES {batch_values[:-1]};\n")
             batch_values = ""
@@ -215,7 +214,6 @@ def artist_insert_data():
         batch_values += f"('{artist_name}', '{artist_age}', {description}, {country}),"
 
         if (i + 1) % 10000 == 0:
-            print(i)
             file.write(
                 f"INSERT INTO eurovision_artist(artist_name, artist_age, description,country) VALUES {batch_values[:-1]};\n")
             batch_values = ""
@@ -231,7 +229,7 @@ def song_insert_data():
     print("Generating SQL queries for inserting data in the Song table...")
 
     for i in range(NO_RECORDS_INTERMEDIARY):
-        song_name = fake.music.songName()
+        song_name = fake.text(max_nb_chars=50)
         artist_id = random.randint(1, NO_RECORDS)
         release_date = str(fake.date_between(datetime.date(1960, 1, 1), datetime.date(2023, 1, 1)))
         album_name = "Album"+song_name
@@ -243,7 +241,6 @@ def song_insert_data():
         batch_values += f"('{song_name}', '{artist_id}', {release_date}, {album_name}),"
 
         if (i + 1) % 10000 == 0:
-            print(i)
             file.write(
                 f"INSERT INTO eurovision_song(song_name, artist_id, release_date,album_name) VALUES {batch_values[:-1]};\n")
             batch_values = ""
@@ -269,7 +266,6 @@ def ids_insert_data():
         batch_values += f"('{country}', '{edition}', {place}, {points}),"
 
         if (i + 1) % 10000 == 0:
-            print(i)
             file.write(
                 f"INSERT INTO eurovision_ids(country, edition, place,points) VALUES {batch_values[:-1]};\n")
             batch_values = ""
@@ -278,8 +274,8 @@ def ids_insert_data():
 
 
 if __name__ == '__main__':
-    drop_constraints_indexes()
-    # add_constraints_indexes()
+    #drop_constraints_indexes()
+    add_constraints_indexes()
     hostcity_insert_data()
     venue_insert_data()
     edition_insert_data()
