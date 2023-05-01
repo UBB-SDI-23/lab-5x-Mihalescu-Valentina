@@ -177,16 +177,18 @@ def country_insert_data():
         country_name = country_name.replace("'", "")
         year_of_entrance = random.randint(1960,2023)
         country_capital = fake.city()[:50]
+        nr = random.randint(1, 50)
+        country_hymn = "Hymn" + str(nr)
         quality_factor = random.randint(1,1000)
 
 
 
 
-        batch_values += f"('{country_name}', '{year_of_entrance}', '{country_capital}', {quality_factor}),"
+        batch_values += f"('{country_name}', '{year_of_entrance}', '{country_capital}', '{country_hymn}',{quality_factor}),"
 
         if (i + 1) % 10000 == 0:
             file.write(
-                f"INSERT INTO eurovision_country(country_name, year_of_entrance, country_capital,quality_factor) VALUES {batch_values[:-1]};\n")
+                f"INSERT INTO eurovision_country(country_name, year_of_entrance, country_capital,country_hymn,quality_factor) VALUES {batch_values[:-1]};\n")
             batch_values = ""
 
     file.close()
