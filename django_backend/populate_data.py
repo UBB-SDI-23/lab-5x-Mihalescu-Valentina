@@ -281,6 +281,6 @@ if __name__ == '__main__':
     #venue_insert_data()
     #edition_insert_data()
     #country_insert_data()
-    artist_insert_data()
-    #song_insert_data()
+    #artist_insert_data()
+    song_insert_data()
     #ids_insert_data()
