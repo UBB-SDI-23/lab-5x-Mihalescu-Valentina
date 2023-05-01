@@ -175,9 +175,9 @@ def country_insert_data():
 
     for i in range(NO_RECORDS_INTERMEDIARY):
 
-        country_name= fake.country()[50]
+        country_name= fake.country()
         year_of_entrance = random.randint(1960,2023)
-        country_capital = fake.city()[50]
+        country_capital = fake.city()
         quality_factor = random.randint(1,1000)
 
 
