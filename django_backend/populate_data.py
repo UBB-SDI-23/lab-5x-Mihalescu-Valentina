@@ -275,11 +275,11 @@ def ids_insert_data():
 
 if __name__ == '__main__':
     # drop_constraints_indexes()
-    add_constraints_indexes()
+    #add_constraints_indexes()
     # hostcity_insert_data()
     # venue_insert_data()
     # edition_insert_data()
-    # country_insert_data()
+    country_insert_data()
     # artist_insert_data()
     #song_insert_data()
     # ids_insert_data()
