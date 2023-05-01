@@ -212,7 +212,7 @@ def artist_insert_data():
 
 
 
-        batch_values += f"('{artist_name}', '{artist_age}', {description}, {country_id}),"
+        batch_values += f"('{artist_name}', '{artist_age}', '{description}', {country_id}),"
 
         if (i + 1) % 10000 == 0:
             file.write(
