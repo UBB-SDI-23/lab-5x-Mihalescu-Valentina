@@ -183,7 +183,7 @@ def country_insert_data():
 
 
 
-        batch_values += f"('{country_name}', '{year_of_entrance}', '{country_capital}', {quality_factor}),"
+        batch_values += f"({country_name}, '{year_of_entrance}', {country_capital}, {quality_factor}),"
 
         if (i + 1) % 10000 == 0:
             file.write(
