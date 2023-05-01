@@ -132,7 +132,7 @@ def venue_insert_data():
         capacity = random.randint(1,1000)
         rating = random.uniform(1.0, 5.0)
 
-        batch_values += f"('{nr}', '{venue_name}', '{venue_adress}', {host_city_id_id},{capacity}, {rating}),"
+        batch_values += f"('{venue_name}', '{venue_adress}', {host_city_id_id},{capacity}, {rating}),"
         if (i + 1) % 1000 == 0:
             file.write(
                 f"INSERT INTO eurovision_venue (venue_name, venue_adress,host_city_id_id, capacity, rating) VALUES {batch_values[:-1]};\n")
@@ -276,7 +276,7 @@ def ids_insert_data():
 if __name__ == '__main__':
     #drop_constraints_indexes()
     add_constraints_indexes()
-    #hostcity_insert_data()
+    hostcity_insert_data()
     venue_insert_data()
     edition_insert_data()
     country_insert_data()
