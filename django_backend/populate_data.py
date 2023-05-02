@@ -10,6 +10,7 @@ django.setup()
 from faker import Faker
 import random
 
+
 fake = Faker()
 
 NO_RECORDS = 1000000
@@ -159,7 +160,7 @@ def edition_insert_data():
 
     for i in range(NO_RECORDS):
         edition_year = random.randint(1960, 2023)
-        final_date = fake.date_between(datetime.date(1960, 1, 1), datetime.date(2023, 1, 1))
+        final_date = fake.date_between_dates(date_start = datetime.date(1980, 1, 1), date_end= datetime.date(2023, 1, 1))
         motto = fake.text(max_nb_chars=50)
         venue_id_id = random.randint(1, NO_RECORDS)
 
@@ -235,7 +236,7 @@ def song_insert_data():
     for i in range(NO_RECORDS_INTERMEDIARY):
         song_name = fake.text(max_nb_chars=50)
         artist_id_id = random.randint(1, NO_RECORDS)
-        release_date = str(fake.date_between(datetime.date(1960, 1, 1), datetime.date(2023, 1, 1)))
+        release_date = str(fake.date_between(datetime.date(1980, 1, 1), datetime.date(2023, 1, 1)))
         album_name = "Album" + song_name
 
         batch_values += f"('{song_name}', '{artist_id_id}', '{release_date}', '{album_name}'),"
@@ -275,11 +276,11 @@ def ids_insert_data():
 
 if __name__ == '__main__':
     # drop_constraints_indexes()
-    #add_constraints_indexes()
-    # hostcity_insert_data()
-    # venue_insert_data()
-    # edition_insert_data()
+    # add_constraints_indexes()
+    hostcity_insert_data()
+    venue_insert_data()
+    edition_insert_data()
     country_insert_data()
-    # artist_insert_data()
-    #song_insert_data()
-    # ids_insert_data()
+    artist_insert_data()
+    song_insert_data()
+    ids_insert_data()
