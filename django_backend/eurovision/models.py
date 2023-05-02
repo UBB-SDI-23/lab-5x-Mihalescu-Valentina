@@ -11,7 +11,7 @@ class Country(models.Model):
     year_of_entrance = models.IntegerField()
     country_capital = models.CharField(max_length=150)
     country_hymn = models.CharField(max_length=150)
-    quality_factor = models.IntegerField()
+    quality_factor = models.IntegerField(db_index=True)
     editions = models.ManyToManyField('Edition', through='Ids')
 
 
