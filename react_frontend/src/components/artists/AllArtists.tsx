@@ -1,3 +1,4 @@
+
 import {
     TableContainer,
     Paper,
@@ -20,25 +21,33 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddIcon from "@mui/icons-material/Add";
 import {Artist} from "../../models/Artist";
+import Pagination from "../Pagination";
 
 
-
+const PAGE_SIZE = 10;
 export const AllArtists = () => {
     const [loading, setLoading] = useState(false);
     const [artists, setArtists] = useState<Artist[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [entitiesPerPage] = useState(50);
+    const [totalEntities,setTotalEntities] = useState(0)
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/artist`)
+        fetch(`${BACKEND_API_URL}/artist?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.json())
             .then((data) => {
-                setArtists(data);
+                setArtists(data.results);
+                setTotalEntities(data.count);
                 setLoading(false);
             });
-    }, []);
+    }, [currentPage]);
 
+
+    const endIndex = currentPage * PAGE_SIZE;
+    const startIndex = endIndex - PAGE_SIZE;
     return (
-        <Container>
+        <Container sx={{display:"flex", flexDirection:"column",alignItems:"center"}}>
             <h1>All artists</h1>
 
             {loading && <CircularProgress />}
@@ -66,7 +75,7 @@ export const AllArtists = () => {
                             {artists.map((artist, index) => (
                                 <TableRow key={artist.id}>
                                     <TableCell component="th" scope="row">
-                                        {index + 1}
+                                        {startIndex + index + 1}
                                     </TableCell>
                                     <TableCell align="right" component="th" scope="row">
                                         <Link to={`/artist/${artist.id}/details`} title="View artist details">
@@ -99,6 +108,12 @@ export const AllArtists = () => {
                     </Table>
                 </TableContainer>
             )}
+            <Pagination
+                entitiesPerPage={entitiesPerPage}
+                totalPages={totalEntities}
+                paginate={(pageNumber: number) => setCurrentPage(pageNumber)}
+            />
+
         </Container>
     );
 };

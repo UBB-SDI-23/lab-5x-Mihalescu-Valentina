@@ -23,31 +23,31 @@ import {BACKEND_API_URL} from "../../constants";
 import axios from "axios";
 import SortTwoToneIcon from '@mui/icons-material/SortTwoTone';
 import {Venue} from "../../models/Venue";
+import Pagination from "../Pagination";
 
 
+const PAGE_SIZE = 10;
 export const AllVenues = () => {
     const [loading, setLoading] = useState(false);
     const [venues, setVenues] = useState<Venue[]>([]);
-    // useEffect(() => {
-    //     setLoading(true);
-    //     fetch(`${BACKEND_API_URL}/venue/`)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setVenues(data);
-    //             setLoading(false);
-    //         });
-    // }, []);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [entitiesPerPage] = useState(50);
+    const [totalEntities,setTotalEntities] = useState(0)
+
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`${BACKEND_API_URL}/venue`)
+        axios.get(`${BACKEND_API_URL}/venue?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.data)
             .then((data) => {
                 setVenues(data);
+                setTotalEntities(data.count);
                 setLoading(false);
             });
-    }, []);
+    }, [currentPage]);
 
+    const endIndex = currentPage * PAGE_SIZE;
+    const startIndex = endIndex - PAGE_SIZE;
     return (
         <Container>
             <h1>All venues</h1>
@@ -78,7 +78,7 @@ export const AllVenues = () => {
                             {venues.map((venue, index) => (
                                 <TableRow key={venue.id}>
                                     <TableCell component="th" scope="row">
-                                        {index + 1}
+                                        {startIndex+index + 1}
                                     </TableCell>
                                     <TableCell component="th" scope="row">
                                         <Link to={`/venue/${venue.id}/details`} title="View venue details">
@@ -113,6 +113,11 @@ export const AllVenues = () => {
                     </Table>
                 </TableContainer>
             )}
+            <Pagination
+                entitiesPerPage={entitiesPerPage}
+                totalPages={totalEntities}
+                paginate={(pageNumber: number) => setCurrentPage(pageNumber)}
+            />
         </Container>
     );
 };

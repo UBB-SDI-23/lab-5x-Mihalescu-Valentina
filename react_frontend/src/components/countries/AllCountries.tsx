@@ -20,20 +20,31 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddIcon from "@mui/icons-material/Add";
 import {Country} from "../../models/Country";
+import Pagination from "../Pagination";
 
+
+const PAGE_SIZE = 10;
 export const AllCountries = () => {
     const [loading, setLoading] = useState(false);
     const [countries, setCountries] = useState<Country[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [entitiesPerPage] = useState(50);
+    const [totalEntities,setTotalEntities] = useState(0)
+
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/country`)
+        fetch(`${BACKEND_API_URL}/country?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.json())
             .then((data) => {
-                setCountries(data);
+                setCountries(data.results);
+                setTotalEntities(data.count);
                 setLoading(false);
             });
-    }, []);
+    }, [currentPage]);
+
+    const endIndex = currentPage * PAGE_SIZE;
+    const startIndex = endIndex - PAGE_SIZE;
 
     return (
         <Container>
@@ -65,7 +76,7 @@ export const AllCountries = () => {
                             {countries.map((country, index) => (
                                 <TableRow key={country.id}>
                                     <TableCell component="th" scope="row">
-                                        {index + 1}
+                                        {startIndex + index + 1}
                                     </TableCell>
                                     <TableCell component="th" scope="row">
                                         <Link to={`/country/${country.id}/details`} title="View course details">
@@ -99,6 +110,11 @@ export const AllCountries = () => {
                     </Table>
                 </TableContainer>
             )}
+            <Pagination
+                entitiesPerPage={entitiesPerPage}
+                totalPages={totalEntities}
+                paginate={(pageNumber: number) => setCurrentPage(pageNumber)}
+            />
         </Container>
     );
 };

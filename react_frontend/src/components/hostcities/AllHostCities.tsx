@@ -23,10 +23,15 @@ import {BACKEND_API_URL} from "../../constants";
 import axios from "axios";
 import SortTwoToneIcon from '@mui/icons-material/SortTwoTone';
 import {HostCity} from "../../models/HostCity";
+import Pagination from "../Pagination";
 
+const PAGE_SIZE = 10;
 export const AllHostCities = () => {
     const [loading, setLoading] = useState(false);
     const [hostcities, setHostCities] = useState<HostCity[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [entitiesPerPage] = useState(50);
+    const [totalEntities,setTotalEntities] = useState(0)
     const sortHostCities = (sortingAttr: string) => {
         const sorted = [...hostcities].sort((a: HostCity, b: HostCity) => {
 
@@ -62,14 +67,17 @@ export const AllHostCities = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`${BACKEND_API_URL}/hostcity/`)
+        axios.get(`${BACKEND_API_URL}/hostcity/?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.data)
             .then((data) => {
-                setHostCities(data);
+                setHostCities(data.results);
+                setTotalEntities(data.count);
                 setLoading(false);
             });
-    }, []);
+    }, [currentPage]);
 
+    const endIndex = currentPage * PAGE_SIZE;
+    const startIndex = endIndex - PAGE_SIZE;
     return <Container>
         <h1>All host cities</h1>
 
@@ -139,7 +147,7 @@ export const AllHostCities = () => {
                 <TableBody>
                     {hostcities.map((hostcity, index) => <TableRow key={hostcity.id}>
                         <TableCell component="th" scope="row">
-                            {index + 1}
+                            {startIndex+index + 1}
                         </TableCell>
                         <TableCell align="right">{hostcity.host_city_name}</TableCell>
                         <TableCell align="right">{hostcity.host_city_population}</TableCell>
@@ -168,5 +176,10 @@ export const AllHostCities = () => {
                 </TableBody>
             </Table>
         </TableContainer>}
+        <Pagination
+            entitiesPerPage={entitiesPerPage}
+            totalPages={totalEntities}
+            paginate={(pageNumber: number) => setCurrentPage(pageNumber)}
+        />
     </Container>;
 }

@@ -124,7 +124,7 @@ export const ArtistAdd = () => {
 
 
 
-                        <Button type="submit">Add Country</Button>
+                        <Button type="submit">Add Artist</Button>
                     </form>
                 </CardContent>
                 <CardActions></CardActions>

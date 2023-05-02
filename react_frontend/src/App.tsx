@@ -38,10 +38,12 @@ import {IdsDetails} from "./components/ids/IdsDetails";
 import {IdsEdit} from "./components/ids/IdsEdit";
 import {IdsDelete} from "./components/ids/IdsDelete";
 import {IdsAdd} from "./components/ids/IdsAdd";
+import {CssBaseline} from "@mui/material";
 
 function App() {
     return (
         <React.Fragment>
+            <CssBaseline/>
             <Router>
                 <AppMenu />
 

@@ -20,23 +20,30 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddIcon from "@mui/icons-material/Add";
 import {Song} from "../../models/Song";
+import Pagination from "../Pagination";
 
-
+const PAGE_SIZE = 10;
 
 export const AllSongs = () => {
     const [loading, setLoading] = useState(false);
     const [songs, setSongs] = useState<Song[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [entitiesPerPage] = useState(50);
+    const [totalEntities,setTotalEntities] = useState(0)
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/song`)
+        fetch(`${BACKEND_API_URL}/song?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.json())
             .then((data) => {
                 setSongs(data);
+                setTotalEntities(data.count);
                 setLoading(false);
             });
-    }, []);
+    }, [currentPage]);
 
+    const endIndex = currentPage * PAGE_SIZE;
+    const startIndex = endIndex - PAGE_SIZE;
     return (
         <Container>
             <h1>All songs</h1>
@@ -66,7 +73,7 @@ export const AllSongs = () => {
                             {songs.map((song, index) => (
                                 <TableRow key={song.id}>
                                     <TableCell component="th" scope="row">
-                                        {index + 1}
+                                        {startIndex+index + 1}
                                     </TableCell>
                                     <TableCell align="right" component="th" scope="row">
                                         <Link to={`/song/${song.id}/details`} title="View artist details">
@@ -99,6 +106,11 @@ export const AllSongs = () => {
                     </Table>
                 </TableContainer>
             )}
+            <Pagination
+                entitiesPerPage={entitiesPerPage}
+                totalPages={totalEntities}
+                paginate={(pageNumber: number) => setCurrentPage(pageNumber)}
+            />
         </Container>
     );
 };
