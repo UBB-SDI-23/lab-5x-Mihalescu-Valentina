@@ -1,28 +1,36 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.db.models import Avg, Count, OuterRef, Subquery, Q, Case, When, \
     IntegerField, Exists
 from drf_spectacular.utils import extend_schema
+from django.core.paginator import Paginator
+from rest_framework.pagination import PageNumberPagination
 
 from .models import Country, HostCity, Venue, Edition, Artist, Song, Ids
 from .serializers import CountrySerializer, CountryDetailsSerializer, VenueSerializer, HostCitySerializer, \
     HostCityDetailsSerializer, VenueDetailsSerializer, EditionSerializer, EditionDetailsSerializer, ArtistSerializer, \
-    ArtistDetailsSerializer, SongSerializer, SongDetailsSerializer, IdsSerializer, EditionSerializerAVG,IdsDetailsSerializer
+    ArtistDetailsSerializer, SongSerializer, SongDetailsSerializer, IdsSerializer, EditionSerializerAVG, \
+    IdsDetailsSerializer
 
 from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework.views import APIView
 
 
-class CountryList(generics.ListCreateAPIView):
-    queryset = Country.objects.all()
-    serializer_class = CountrySerializer
+class EntityPaginator(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    page_query_param = 'page'
 
+class CountryList(generics.ListCreateAPIView):
+    queryset = Country.objects.all().order_by('id')
+    serializer_class = CountrySerializer
+    pagination_class = EntityPaginator
 
 class CountryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Country.objects.all()
+    queryset = Country.objects.all().order_by('id')
     serializer_class = CountryDetailsSerializer
 
 
@@ -30,7 +38,7 @@ class CountryFilter(generics.ListCreateAPIView):
     serializer_class = CountrySerializer
 
     def get_queryset(self):
-        queryset = Country.objects.all()
+        queryset = Country.objects.all().order_by('id')
         var = self.request.GET.get('var', 0)
         if var is not None:
             queryset = queryset.filter(quality_factor__gt=var)
@@ -41,12 +49,13 @@ class CountryFilter(generics.ListCreateAPIView):
 
 
 class HostCityList(generics.ListCreateAPIView):
-    queryset = HostCity.objects.all()
+    queryset = HostCity.objects.all().order_by('id')
     serializer_class = HostCitySerializer
+    pagination_class = EntityPaginator
 
 
 class HostCityDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = HostCity.objects.all()
+    queryset = HostCity.objects.all().order_by('id')
     serializer_class = HostCityDetailsSerializer
 
 
@@ -54,13 +63,14 @@ class HostCityFilter(generics.ListCreateAPIView):
     serializer_class = HostCitySerializer
 
     def get_queryset(self):
-        queryset = HostCity.objects.all()
+        queryset = HostCity.objects.all().order_by('id')
         var = self.request.GET.get('var', 0)
         if var is not None:
             queryset = queryset.filter(quality_factor__gt=var)
         return queryset
-# http://127.0.0.1:8000/eurovision/filter-hostcity-by-qf/?var=600
 
+
+# http://127.0.0.1:8000/eurovision/filter-hostcity-by-qf/?var=600
 
 
 class HostCityViewForAutocomplete(APIView):
@@ -77,16 +87,17 @@ class HostCityViewForAutocomplete(APIView):
 
 
 class VenueList(generics.ListCreateAPIView):
-    queryset = Venue.objects.all()
+    queryset = Venue.objects.all().order_by('id')
     serializer_class = VenueSerializer
-
+    pagination_class = EntityPaginator
 
 class VenueDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Venue.objects.all()
+    queryset = Venue.objects.all().order_by('id')
     serializer_class = VenueDetailsSerializer
 
+
 class VenueViewForAutocomplete(APIView):
-    @extend_schema(request=None, responses=VenueSerializer)
+    @extend_schema(request=None, responses=VenueDetailsSerializer)
     def get(self, request):
         query = request.query_params.get('query', None)
         if query:
@@ -94,28 +105,33 @@ class VenueViewForAutocomplete(APIView):
         else:
             venues = Venue.objects.all()[:10]
 
-        serialized_venues = VenueSerializer(venues, many=True)
+        serialized_venues = VenueDetailsSerializer(venues, many=True)
         return Response(serialized_venues.data)
 
 
 class EditionList(generics.ListCreateAPIView):
-    queryset = Edition.objects.all()
+    queryset = Edition.objects.all().order_by('id')
     serializer_class = EditionSerializer
+    pagination_class = EntityPaginator
+
 
 
 class EditionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Edition.objects.all()
+    queryset = Edition.objects.all().order_by('id')
     serializer_class = EditionDetailsSerializer
 
 
-class ArtistList(generics.ListCreateAPIView):
-    queryset = Artist.objects.all()
-    serializer_class = ArtistSerializer
 
+class ArtistList(generics.ListCreateAPIView):
+    queryset = Artist.objects.all().order_by('id')
+    serializer_class = ArtistSerializer
+    pagination_class = EntityPaginator
 
 class ArtistDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Artist.objects.all()
+    queryset = Artist.objects.all().order_by('id')
     serializer_class = ArtistDetailsSerializer
+
+
 
 class ArtistViewForAutocomplete(APIView):
     @extend_schema(request=None, responses=ArtistSerializer)
@@ -131,31 +147,32 @@ class ArtistViewForAutocomplete(APIView):
 
 
 class SongList(generics.ListCreateAPIView):
-    queryset = Song.objects.all()
+    queryset = Song.objects.all().order_by('id')
     serializer_class = SongSerializer
-
+    pagination_class = EntityPaginator
 
 class SongDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Song.objects.all()
+    queryset = Song.objects.all().order_by('id')
     serializer_class = SongDetailsSerializer
 
 
 class IdsList(generics.ListCreateAPIView):
-    queryset = Ids.objects.all()
+    queryset = Ids.objects.all().order_by('id')
     serializer_class = IdsSerializer
+    pagination_class = EntityPaginator
 
 
-class IdsDetailsList(generics.ListCreateAPIView):
-    queryset = Ids.objects.all()
+
+class IdsDetailsList(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Ids.objects.all().order_by('id')
     serializer_class = IdsDetailsSerializer
+
 
 class IdssDetailsList(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Ids.objects.all()
+    queryset = Ids.objects.all().order_by('id')
     serializer_class = IdsDetailsSerializer
 
-class CountryIdsList(generics.ListCreateAPIView):
-    queryset = Country.objects.all()
-    serializer_class = IdsSerializer
+
 
 class CountryViewForAutocomplete(APIView):
     @extend_schema(request=None, responses=CountrySerializer)
@@ -169,20 +186,6 @@ class CountryViewForAutocomplete(APIView):
         serialized_countries = CountrySerializer(countries, many=True)
         return Response(serialized_countries.data)
 
-class CountryIdsDetails(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Country.objects.all()
-    serializer_class = IdsSerializer
-
-
-class EditionIdsList(generics.ListCreateAPIView):
-    queryset = Ids.objects.all()
-    serializer_class = IdsSerializer
-
-
-class EditionIdsDetails(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Ids.objects.all()
-    serializer_class = IdsSerializer
-
 
 class EditionViewForAutocomplete(APIView):
     @extend_schema(request=None, responses=EditionSerializer)
@@ -195,15 +198,6 @@ class EditionViewForAutocomplete(APIView):
 
         serialized_editions = EditionSerializer(editions, many=True)
         return Response(serialized_editions.data)
-
-class SongIdsList(generics.ListCreateAPIView):
-    queryset = Song.objects.all()
-    serializer_class = IdsSerializer
-
-
-class SongIdsDetails(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Song.objects.all()
-    serializer_class = IdsSerializer
 
 
 class EditionByCountryQF(generics.ListAPIView):
@@ -224,4 +218,3 @@ class EditionByCountryNR(generics.ListAPIView):
             .annotate(country_nr=Count('countries__id')) \
             .order_by('-country_nr')
         return queryset
-
