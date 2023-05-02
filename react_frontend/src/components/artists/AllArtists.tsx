@@ -111,6 +111,7 @@ export const AllArtists = () => {
             <Pagination
                 entitiesPerPage={entitiesPerPage}
                 totalPages={totalEntities}
+                currentPage = {currentPage}
                 paginate={(pageNumber: number) => setCurrentPage(pageNumber)}
             />
 

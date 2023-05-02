@@ -116,6 +116,7 @@ export const AllVenues = () => {
             <Pagination
                 entitiesPerPage={entitiesPerPage}
                 totalPages={totalEntities}
+                currentPage={currentPage}
                 paginate={(pageNumber: number) => setCurrentPage(pageNumber)}
             />
         </Container>
