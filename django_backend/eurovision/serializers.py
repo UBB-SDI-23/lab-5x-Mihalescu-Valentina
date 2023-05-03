@@ -17,7 +17,7 @@ class HostCitySerializer(serializers.ModelSerializer):
 class VenueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venue
-        fields = ('id', 'venue_name', 'venue_adress', 'capacity', 'rating', 'host_city_id')
+        fields = ('id', 'venue_name', 'venue_adress', 'capacity', 'rating', 'host_city_id','nb_editions')
 
 
 class EditionSerializer(serializers.ModelSerializer):
