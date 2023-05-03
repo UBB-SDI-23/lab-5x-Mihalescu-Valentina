@@ -1,3 +1,4 @@
+from django.db.models.functions import Coalesce
 from django.shortcuts import render
 
 # Create your views here.
@@ -13,7 +14,7 @@ from .serializers import CountrySerializer, CountryDetailsSerializer, VenueSeria
     HostCityDetailsSerializer, VenueDetailsSerializer, EditionSerializer, EditionDetailsSerializer, ArtistSerializer, \
     ArtistDetailsSerializer, SongSerializer, SongDetailsSerializer, IdsSerializer, EditionSerializerAVG, \
     IdsDetailsSerializer
-
+from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework.views import APIView
@@ -24,10 +25,12 @@ class EntityPaginator(PageNumberPagination):
     page_size_query_param = 'page_size'
     page_query_param = 'page'
 
+
 class CountryList(generics.ListCreateAPIView):
     queryset = Country.objects.all().order_by('id')
     serializer_class = CountrySerializer
     pagination_class = EntityPaginator
+
 
 class CountryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Country.objects.all().order_by('id')
@@ -36,6 +39,7 @@ class CountryDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class CountryFilter(generics.ListCreateAPIView):
     serializer_class = CountrySerializer
+    pagination_class = EntityPaginator
 
     def get_queryset(self):
         queryset = Country.objects.all().order_by('id')
@@ -53,6 +57,23 @@ class HostCityList(generics.ListCreateAPIView):
     serializer_class = HostCitySerializer
     pagination_class = EntityPaginator
 
+    def get_queryset(self):
+        hostcities = HostCity.objects.annotate(
+            nb_venues=Coalesce(Subquery(
+                Venue.objects.filter(host_city_id=OuterRef('pk')).values('host_city_id').annotate(count=Count('id')).values(
+                    'count')
+            ), 0)
+        )
+        return hostcities
+
+    def get_serializer(self, args, **kwargs):
+        serializer_class = self.get_serializer_class()
+        kwargs.setdefault("context", self.get_serializer_context())
+        serializer = serializer_class(args, **kwargs)
+        if self.request.method == "GET":
+            serializer.child.fields['nb_venues'] = serializers.IntegerField()
+        return serializer
+
 
 class HostCityDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = HostCity.objects.all().order_by('id')
@@ -61,6 +82,7 @@ class HostCityDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class HostCityFilter(generics.ListCreateAPIView):
     serializer_class = HostCitySerializer
+    pagination_class = EntityPaginator
 
     def get_queryset(self):
         queryset = HostCity.objects.all().order_by('id')
@@ -91,6 +113,27 @@ class VenueList(generics.ListCreateAPIView):
     serializer_class = VenueSerializer
     pagination_class = EntityPaginator
 
+    def get_queryset(self):
+        editions = Venue.objects.annotate(
+            nb_editions=Coalesce(Subquery(
+                Edition.objects.filter(venue_id=OuterRef('pk')).values('venue_id').annotate(count=Count('id')).values(
+                    'count')
+            ), 0)
+        )
+        return editions
+
+
+    def get_serializer(self, args, **kwargs):
+        serializer_class = self.get_serializer_class()
+        kwargs.setdefault("context", self.get_serializer_context())
+        serializer = serializer_class(args, **kwargs)
+        if self.request.method == "GET":
+            serializer.child.fields['nb_editions'] = serializers.IntegerField()
+        return serializer
+
+
+
+
 class VenueDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Venue.objects.all().order_by('id')
     serializer_class = VenueDetailsSerializer
@@ -115,11 +158,9 @@ class EditionList(generics.ListCreateAPIView):
     pagination_class = EntityPaginator
 
 
-
 class EditionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Edition.objects.all().order_by('id')
     serializer_class = EditionDetailsSerializer
-
 
 
 class ArtistList(generics.ListCreateAPIView):
@@ -127,10 +168,10 @@ class ArtistList(generics.ListCreateAPIView):
     serializer_class = ArtistSerializer
     pagination_class = EntityPaginator
 
+
 class ArtistDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Artist.objects.all().order_by('id')
     serializer_class = ArtistDetailsSerializer
-
 
 
 class ArtistViewForAutocomplete(APIView):
@@ -151,6 +192,7 @@ class SongList(generics.ListCreateAPIView):
     serializer_class = SongSerializer
     pagination_class = EntityPaginator
 
+
 class SongDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Song.objects.all().order_by('id')
     serializer_class = SongDetailsSerializer
@@ -162,8 +204,7 @@ class IdsList(generics.ListCreateAPIView):
     pagination_class = EntityPaginator
 
 
-
-class IdsDetailsList(generics.RetrieveUpdateDestroyAPIView):
+class IdsDetailsList(generics.ListCreateAPIView):
     queryset = Ids.objects.all().order_by('id')
     serializer_class = IdsDetailsSerializer
 
@@ -171,7 +212,6 @@ class IdsDetailsList(generics.RetrieveUpdateDestroyAPIView):
 class IdssDetailsList(generics.RetrieveUpdateDestroyAPIView):
     queryset = Ids.objects.all().order_by('id')
     serializer_class = IdsDetailsSerializer
-
 
 
 class CountryViewForAutocomplete(APIView):
@@ -202,6 +242,7 @@ class EditionViewForAutocomplete(APIView):
 
 class EditionByCountryQF(generics.ListAPIView):
     serializer_class = EditionSerializerAVG
+    pagination_class = EntityPaginator
 
     def get_queryset(self):
         queryset = Edition.objects \
@@ -212,6 +253,7 @@ class EditionByCountryQF(generics.ListAPIView):
 
 class EditionByCountryNR(generics.ListAPIView):
     serializer_class = EditionSerializer
+    pagination_class = EntityPaginator
 
     def get_queryset(self):
         queryset = Edition.objects \
