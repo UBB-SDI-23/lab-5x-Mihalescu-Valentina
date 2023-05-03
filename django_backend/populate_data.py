@@ -53,7 +53,7 @@ def drop_constraints_indexes():
     file = open("drop_constraints_indexes.sql", "w")
 
     file.write(
-        "ALTER TABLE eurovision_venue DROP CONSTRAINT IF EXISTS eurovision_venue_host_city_id_id_dc4c2aff_fk_eurovisio";\n")
+        "ALTER TABLE eurovision_venue DROP CONSTRAINT IF EXISTS eurovision_venue_host_city_id_id_dc4c2aff_fk_eurovisio;\n")
     file.write("DROP INDEX IF EXISTS IDX_HostCity_ID;\n")
 
     file.write(
