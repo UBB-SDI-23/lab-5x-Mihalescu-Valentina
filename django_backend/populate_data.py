@@ -84,43 +84,37 @@ def drop_constraints_indexes():
 def add_constraints_indexes():
     file = open("add_constraints_indexes.sql", "w")
 
-    # file.write("ALTER TABLE eurovision_hostcity ADD CONSTRAINT eurovision_hostcity_pkey;\n")
-
-    # file.write("ALTER TABLE eurovision_venue ADD CONSTRAINT eurovision_venue_pkey;\n")
 
     file.write("ALTER TABLE eurovision_venue ADD CONSTRAINT eurovision_venue_host_city_id_id_dc4c2aff_fk_eurovisio FOREIGN key(host_city_id_id) references eurovision_hostcity(id) on delete cascade;\n")
 
-    # file.write("ALTER TABLE eurovision_edition ADD CONSTRAINT eurovision_edition_pkey;\n")
 
-    # file.write(
-    #     "ALTER TABLE eurovision_edition ADD CONSTRAINT eurovision_edition_venue_id_id_8c70153c_fk_eurovision_venue_id FOREIGN key(venue_id_id) references eurovision_venue(id) on delete cascade;\n")
+    file.write(
+        "ALTER TABLE eurovision_edition ADD CONSTRAINT eurovision_edition_venue_id_id_8c70153c_fk_eurovision_venue_id FOREIGN key(venue_id_id) references eurovision_venue(id) on delete cascade;\n")
 
-    # file.write("ALTER TABLE eurovision_country ADD CONSTRAINT eurovision_country_pkey;\n")
 
-    # file.write("ALTER TABLE eurovision_artist ADD CONSTRAINT eurovision_artist_pkey;\n")
 
-    # file.write(
-    #     "ALTER TABLE eurovision_artist ADD CONSTRAINT  eurovision_artist_country_id_47605989_fk_eurovision_country_id FOREIGN key(country_id) references eurovision_country(id) on delete cascade;\n")
+    file.write(
+        "ALTER TABLE eurovision_artist ADD CONSTRAINT  eurovision_artist_country_id_47605989_fk_eurovision_country_id FOREIGN key(country_id) references eurovision_country(id) on delete cascade;\n")
 
-    # file.write("ALTER TABLE eurovision_song ADD CONSTRAINT eurovision_song_pkey;\n")
 
-    # file.write(
-    #     "ALTER TABLE eurovision_song ADD CONSTRAINT  eurovision_song_artist_id_id_865d0e06_fk_eurovision_artist_id FOREIGN key(artist_id_id) references eurovision_artist(id) on delete cascade;\n")
 
-    # file.write("ALTER TABLE eurovision_ids ADD CONSTRAINT eurovision_ids_pkey;\n")
-    #
-    # file.write(
-    #     "ALTER TABLE eurovision_ids ADD CONSTRAINT  eurovision_ids_country_id_c0d299f5_fk_eurovision_country_id FOREIGN key(country_id) references eurovision_country(id) on delete cascade;\n")
+    file.write(
+        "ALTER TABLE eurovision_song ADD CONSTRAINT  eurovision_song_artist_id_id_865d0e06_fk_eurovision_artist_id FOREIGN key(artist_id_id) references eurovision_artist(id) on delete cascade;\n")
 
-    # file.write(
-    #     "ALTER TABLE eurovision_ids ADD CONSTRAINT  FK_eurovision_ids_edition_id FOREIGN key(edition_id) references eurovision_edition(id) on delete cascade;\n")
 
-    # file.write("CREATE INDEX IDX_HostCity_ID ON eurovision_venue(host_city_id_id);\n")
-    # file.write("CREATE INDEX IDX_Venue_ID ON eurovision_edition(venue_id_id);\n")
-    # file.write("CREATE INDEX IDX_Country_ID ON eurovision_artist(country_id);\n")
-    # file.write("CREATE INDEX IDX_Artist_ID ON eurovision_song(artist_id_id);\n")
-    # file.write("CREATE INDEX IDX_Edition_IDD ON eurovision_ids(edition_id);\n")
-    # file.write("CREATE INDEX IDX_Country_IDD ON eurovision_ids(country_id);\n")
+
+    file.write(
+        "ALTER TABLE eurovision_ids ADD CONSTRAINT  eurovision_ids_country_id_c0d299f5_fk_eurovision_country_id FOREIGN key(country_id) references eurovision_country(id) on delete cascade;\n")
+
+    file.write(
+        "ALTER TABLE eurovision_ids ADD CONSTRAINT eurovision_ids_edition_id_1d2c1e8a_fk_eurovision_edition_id  FOREIGN key(edition_id) references eurovision_edition(id) on delete cascade;\n")
+
+    file.write("CREATE INDEX IDX_HostCity_ID ON eurovision_venue(host_city_id_id);\n")
+    file.write("CREATE INDEX IDX_Venue_ID ON eurovision_edition(venue_id_id);\n")
+    file.write("CREATE INDEX IDX_Country_ID ON eurovision_artist(country_id);\n")
+    file.write("CREATE INDEX IDX_Artist_ID ON eurovision_song(artist_id_id);\n")
+    file.write("CREATE INDEX IDX_Edition_IDD ON eurovision_ids(edition_id);\n")
+    file.write("CREATE INDEX IDX_Country_IDD ON eurovision_ids(country_id);\n")
 
     file.close()
 
