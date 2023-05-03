@@ -32,27 +32,27 @@ export const AllIds = () => {
     const [totalEntities,setTotalEntities] = useState(0)
 
 
-    useEffect(() => {
-        setLoading(true);
-        fetch(`${BACKEND_API_URL}/idss?page=${currentPage}&page_size=${entitiesPerPage}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setIds(data);
-                setTotalEntities(data.count);
-                setLoading(false);
-            });
-    }, [currentPage]);
-
     // useEffect(() => {
     //     setLoading(true);
     //     fetch(`${BACKEND_API_URL}/idss?page=${currentPage}&page_size=${entitiesPerPage}`)
     //         .then((response) => response.json())
     //         .then((data) => {
-    //             setIds(data.results  || []);
+    //             setIds(data);
     //             setTotalEntities(data.count);
     //             setLoading(false);
     //         });
     // }, [currentPage]);
+
+    useEffect(() => {
+        setLoading(true);
+        fetch(`${BACKEND_API_URL}/idss?page=${currentPage}&page_size=${entitiesPerPage}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setIds(data.results  || []);
+                setTotalEntities(data.count);
+                setLoading(false);
+            });
+    }, [currentPage]);
 
     const endIndex = currentPage * PAGE_SIZE;
     const startIndex = endIndex - PAGE_SIZE;
