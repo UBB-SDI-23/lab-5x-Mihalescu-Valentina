@@ -69,7 +69,7 @@ def drop_constraints_indexes():
         "ALTER TABLE eurovision_ids DROP CONSTRAINT IF EXISTS eurovision_ids_country_id_c0d299f5_fk_eurovision_country_id;\n")
 
     file.write(
-        "ALTER TABLE eurovision_ids DROP CONSTRAINT IF EXISTS eurovision_ids_edition_id_1d2c1e8a_fk_eurovision_edition_id";\n")
+        "ALTER TABLE eurovision_ids DROP CONSTRAINT IF EXISTS eurovision_ids_edition_id_1d2c1e8a_fk_eurovision_edition_id;\n")
     file.write("DROP INDEX IF EXISTS IDX_Venue_ID;\n")
     file.write("DROP INDEX IF EXISTS IDX_Country_ID;\n")
     file.write("DROP INDEX IF EXISTS IDX_Artist_ID;\n")
