@@ -34,7 +34,7 @@ export const AllIds = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/ids?page=${currentPage}&page_size=${entitiesPerPage}`)
+        fetch(`${BACKEND_API_URL}/idss?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.json())
             .then((data) => {
                 setIds(data);
