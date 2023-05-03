@@ -20,7 +20,9 @@ export const HostCityAdd = () => {
         is_capital: false,
         quality_factor: 0,
         id: 0,
+        nb_venues:0,
     });
+
 
     const addHostCity = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
@@ -83,6 +85,7 @@ export const HostCityAdd = () => {
                             sx={{ mb: 2 }}
                             onChange={(event) => setHostCity({ ...hostcity, quality_factor: parseInt(event.target.value)})}
                         />
+
 
 
                         <Button type="submit">Add HostCity</Button>

@@ -26,7 +26,7 @@ import {Venue} from "../../models/Venue";
 import Pagination from "../Pagination";
 
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 50;
 export const AllVenues = () => {
     const [loading, setLoading] = useState(false);
     const [venues, setVenues] = useState<Venue[]>([]);
@@ -35,12 +35,22 @@ export const AllVenues = () => {
     const [totalEntities,setTotalEntities] = useState(0)
 
 
+    // useEffect(() => {
+    //     setLoading(true);
+    //     axios.get(`${BACKEND_API_URL}/venue?page=${currentPage}&page_size=${entitiesPerPage}`)
+    //         .then((response) => response.data)
+    //         .then((data) => {
+    //             setVenues(data);
+    //             setTotalEntities(Math.ceil(data.count / entitiesPerPage));
+    //             setLoading(false);
+    //         });
+    // }, [currentPage]);
     useEffect(() => {
         setLoading(true);
-        axios.get(`${BACKEND_API_URL}/venue?page=${currentPage}&page_size=${entitiesPerPage}`)
-            .then((response) => response.data)
+        fetch(`${BACKEND_API_URL}/venue?page=${currentPage}&page_size=${entitiesPerPage}`)
+            .then((response) => response.json())
             .then((data) => {
-                setVenues(data);
+                setVenues(data.results);
                 setTotalEntities(data.count);
                 setLoading(false);
             });
@@ -71,6 +81,7 @@ export const AllVenues = () => {
                                 <TableCell align="right">Adress</TableCell>
                                 <TableCell align="right">Capacity</TableCell>
                                 <TableCell align="right">Rating</TableCell>
+                                <TableCell align="right">Nb of editions</TableCell>
                                 <TableCell align="center">Operations</TableCell>
                             </TableRow>
                         </TableHead>
@@ -89,6 +100,7 @@ export const AllVenues = () => {
 
                                     <TableCell align="right">{venue?.capacity}</TableCell>
                                     <TableCell align="right">{venue?.rating}</TableCell>
+                                    <TableCell align="right">{venue?.nb_editions}</TableCell>
                                     <TableCell align="right">
                                         <IconButton
                                             component={Link}

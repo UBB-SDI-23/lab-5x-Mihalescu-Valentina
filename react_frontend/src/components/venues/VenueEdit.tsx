@@ -17,6 +17,7 @@ export const VenueEdit = () => {
         venue_adress: "",
         capacity: 1,
         rating: 1,
+        nb_editions:0,
     });
 
     useEffect(() => {

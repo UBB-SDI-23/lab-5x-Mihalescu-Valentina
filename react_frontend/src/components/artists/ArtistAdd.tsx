@@ -20,7 +20,7 @@ import {Artist} from "../../models/Artist";
 import {Venue} from "../../models/Venue";
 import {Country} from "../../models/Country";
 
-
+import {ToastContainer, toast} from 'react-toastify';
 export const ArtistAdd = () => {
     const navigate = useNavigate();
 
@@ -67,6 +67,7 @@ export const ArtistAdd = () => {
             await axios.post(`${BACKEND_API_URL}/artist/`, artist);
             navigate("/artist");
         } catch (error) {
+            toast.error('An error occurred while adding the artist.');
             console.log(error);
         }
     };

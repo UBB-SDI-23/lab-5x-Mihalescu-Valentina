@@ -19,6 +19,7 @@ export const HostCityEdit = () => {
         is_capital: false,
         quality_factor: 0,
         id: 0,
+        nb_venues: 0,
     });
 
     useEffect(() => {

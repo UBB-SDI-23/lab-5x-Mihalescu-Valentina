@@ -58,8 +58,8 @@ const Pagination = ({entitiesPerPage,totalPages,currentPage,paginate}:Props) => 
             } else if (currentPage >= totalPages - 2) {
                 start = totalPages - MAX_PAGES + 1;
             } else {
-                start = currentPage - 10;
-                end = currentPage + 10;
+                start = currentPage - 2;
+                end = currentPage + 2;
             }
         }
 

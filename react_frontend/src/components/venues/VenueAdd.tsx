@@ -9,6 +9,7 @@ import {BACKEND_API_URL} from "../../constants";
 import axios from "axios";
 import {Venue} from "../../models/Venue";
 import {debounce} from "lodash"
+import {ToastContainer, toast} from 'react-toastify';
 
 export const VenueAdd = () => {
     const navigate = useNavigate();
@@ -18,9 +19,15 @@ export const VenueAdd = () => {
         venue_adress: "",
         capacity: 1,
         rating: 1,
-        id:1,
+        id: 1,
+        nb_editions:0,
     });
 
+    const [localError, setLocalError] = useState({
+        venue_name: "",
+        venue_adress:"",
+        capacity: 0,
+    });
     const [hostcities, setHostCities] = useState<HostCity[]>([]);
     const fetchSuggestions = async (query: string) => {
         try {
@@ -48,6 +55,7 @@ export const VenueAdd = () => {
             await axios.post(`${BACKEND_API_URL}/venue/`, venue);
             navigate("/venue/");
         } catch (error) {
+            toast.error('An error occurred while adding the venue.');
             console.log(error);
         }
     };
@@ -74,7 +82,24 @@ export const VenueAdd = () => {
                             variant="outlined"
                             fullWidth
                             sx={{mb: 2}}
-                            onChange={(event) => setVenue({...venue, venue_name: event.target.value})}
+                            error={localError.venue_name ? true : false}
+                            helperText={localError.venue_name}
+                        onChange={(event) => {
+                            if (
+                                !event.target.value.includes("Venue")
+                            ) {
+                                setLocalError({
+                                    ...localError,
+                                    venue_name: "The venue name must contain the word Venue",
+                                });
+                            }
+                            else {
+                                setLocalError({
+                                    ...localError,
+                                    venue_name: "",
+                                });}
+
+                            setVenue({...venue, venue_name: event.target.value})}}
                         />
                         <TextField
                             id="venue_adress"
@@ -82,7 +107,24 @@ export const VenueAdd = () => {
                             variant="outlined"
                             fullWidth
                             sx={{mb: 2}}
-                            onChange={(event) => setVenue({...venue, venue_adress: event.target.value})}
+                            error={localError.venue_adress ? true : false}
+                            helperText={localError.venue_adress}
+                            onChange={(event) => {
+                                if (
+                                    !event.target.value.includes("Adress")
+                                ) {
+                                    setLocalError({
+                                        ...localError,
+                                        venue_adress: "The venue adress must contain the word Adress",
+                                    });
+                                }
+                                else {
+                                    setLocalError({
+                                        ...localError,
+                                        venue_adress: "",
+                                    });}
+
+                                setVenue({...venue, venue_adress: event.target.value})}}
                         />
 
 
@@ -102,14 +144,16 @@ export const VenueAdd = () => {
                         />
 
 
-
                         <TextField
                             id="capacity"
                             label="Capacity"
                             variant="outlined"
                             fullWidth
                             sx={{mb: 2}}
-                            onChange={(event) => setVenue({...venue, capacity: parseInt(event.target.value)})}
+                            error={localError.capacity ? true : false}
+                            helperText={localError.capacity}
+                            onChange={(event) => {
+                                setVenue({...venue, capacity: parseInt(event.target.value)})}}
                         />
 
                         <TextField
@@ -118,7 +162,7 @@ export const VenueAdd = () => {
                             variant="outlined"
                             fullWidth
                             sx={{mb: 2}}
-                            onChange={(event) => setVenue({...venue, capacity: parseFloat(event.target.value)})}
+                            onChange={(event) => setVenue({...venue, rating: parseFloat(event.target.value)})}
                         />
 
 

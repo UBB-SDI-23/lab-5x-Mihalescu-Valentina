@@ -28,6 +28,10 @@ export const CountryAdd = () => {
         quality_factor: 1,
     });
 
+    const [localError, setLocalError] = useState({
+        country_name: "",
+        country_capital:"",
+    });
 
     const addCountry = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
@@ -54,7 +58,25 @@ export const CountryAdd = () => {
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
-                            onChange={(event) => setCountry({ ...country, country_name: event.target.value })}
+                            error={localError.country_name? true : false}
+                            helperText={localError.country_name}
+                            onChange={(event) => {
+                                const hasDigit = /\d/.test(event.target.value);
+                                if (
+                                    hasDigit
+
+                                ) {
+                                    setLocalError({
+                                        ...localError,
+                                        country_name: "The country has to contain only letters",
+                                    });
+                                }
+                                else {
+                                    setLocalError({
+                                        ...localError,
+                                        country_name: "",
+                                    });}
+                                setCountry({ ...country, country_name: event.target.value })}}
                         />
                         <TextField
                             id="year_of_entrance"
@@ -71,7 +93,25 @@ export const CountryAdd = () => {
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
-                            onChange={(event) => setCountry({ ...country, country_capital: event.target.value })}
+                            error={localError.country_capital? true : false}
+                            helperText={localError.country_capital}
+                            onChange={(event) => {
+                                const hasDigit = /\d/.test(event.target.value);
+                                if (
+                                    hasDigit
+
+                                ) {
+                                    setLocalError({
+                                        ...localError,
+                                        country_capital: "The capital has to contain only letters",
+                                    });
+                                }
+                                else {
+                                    setLocalError({
+                                        ...localError,
+                                        country_capital: "",
+                                    });}
+                                setCountry({ ...country, country_capital: event.target.value })}}
                         />
 
 

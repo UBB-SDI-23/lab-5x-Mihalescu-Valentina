@@ -9,4 +9,6 @@ export interface Venue {
     host_city_id?: HostCity | number;
     capacity : number;
     rating : number;
+
+    nb_editions:number;
 }

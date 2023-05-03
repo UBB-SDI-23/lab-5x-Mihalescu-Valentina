@@ -9,7 +9,7 @@ import {
     CircularProgress,
     Container,
     IconButton,
-    Tooltip,
+    Tooltip, Button,
 } from "@mui/material";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -56,6 +56,19 @@ export const AllEditions = () => {
                     </Tooltip>
                 </IconButton>
             )}
+
+            {/*{!loading && (*/}
+            {/*    <Button component={Link} sx={{mr: 3}} to={`/edition/by-country-nr/`}>Statistic1*/}
+            {/*    </Button>*/}
+
+            {/*)}*/}
+
+            {/*{!loading && (*/}
+            {/*    <Button component={Link} sx={{mr: 3}} to={`/edition/by-country-nr/`}>Statistic2*/}
+            {/*    </Button>*/}
+
+            {/*)}*/}
+
             {!loading && editions.length > 0 && (
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">

@@ -31,6 +31,10 @@ export const SongAdd = () => {
         album_name: "",
     });
 
+    const [localError, setLocalError] = useState({
+        album_name: "",
+    });
+
     const [artists, setArtists] = useState<Artist[]>([]);
 
     const fetchSuggestions = async (query: string) => {
@@ -102,8 +106,24 @@ export const SongAdd = () => {
                             label="Album name"
                             variant="outlined"
                             fullWidth
+                            error={localError.album_name ? true : false}
+                            helperText={localError.album_name}
                             sx={{ mb: 2 }}
-                            onChange={(event) => setSong({ ...song, album_name: event.target.value })}
+                            onChange={(event) => {
+                                if (
+                                    !event.target.value.includes("Album")
+                                ) {
+                                    setLocalError({
+                                        ...localError,
+                                        album_name: "The album name must contain the word Album",
+                                    });
+                                }
+                                else {
+                                    setLocalError({
+                                        ...localError,
+                                        album_name: "",
+                                    });}
+                                setSong({ ...song, album_name: event.target.value })}}
                         />
 
                         <Autocomplete

@@ -38,6 +38,7 @@ import {IdsDetails} from "./components/ids/IdsDetails";
 import {IdsEdit} from "./components/ids/IdsEdit";
 import {IdsDelete} from "./components/ids/IdsDelete";
 import {IdsAdd} from "./components/ids/IdsAdd";
+import {AllEditionsStatistics} from "./components/editions/AllEditionsStatistics";
 import {CssBaseline} from "@mui/material";
 
 function App() {
@@ -69,10 +70,12 @@ function App() {
                     <Route path="/country/add" element={<CountryAdd />} />
 
                     <Route path="/edition" element={<AllEditions />} />
+                    <Route path="/edition/add" element={<AllEditionsStatistics />} />
                     <Route path="/edition/:editionId/details" element={<EditionDetails />} />
                     <Route path="/edition/:editionId/edit" element={<EditionEdit />} />
                     <Route path="/edition/:editionId/delete" element={<EditionDelete />} />
                     <Route path="/edition/add" element={<EditionAdd />} />
+
 
                     <Route path="/artist" element={<AllArtists />} />
                     <Route path="/artist/:artistId/details" element={<ArtistDetails />} />
