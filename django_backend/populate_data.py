@@ -23,37 +23,60 @@ NO_RECORDS_INTERMEDIARY = 10000000
 def drop_constraints_indexes():
     file = open("drop_constraints_indexes.sql", "w")
 
-    file.write("ALTER TABLE eurovision_hostcity DROP CONSTRAINT IF EXISTS eurovision_hostcity_pkey;\n")
-
-    file.write("ALTER TABLE eurovision_venue DROP CONSTRAINT IF EXISTS eurovision_venue_pkey;\n")
 
     file.write(
         "ALTER TABLE eurovision_venue DROP CONSTRAINT IF EXISTS eurovision_venue_host_city_id_id_dc4c2aff_fk_eurovisio;\n")
 
-    file.write("ALTER TABLE eurovision_edition DROP CONSTRAINT IF EXISTS eurovision_edition_pkey;\n")
 
     file.write(
         "ALTER TABLE eurovision_edition DROP CONSTRAINT IF EXISTS eurovision_edition_venue_id_id_8c70153c_fk_eurovision_venue_id;\n")
 
-    file.write("ALTER TABLE eurovision_country DROP CONSTRAINT IF EXISTS eurovision_country_pkey;\n")
 
-    file.write("ALTER TABLE eurovision_artist DROP CONSTRAINT IF EXISTS eurovision_artist_pkey;\n")
 
     file.write(
         "ALTER TABLE eurovision_artist DROP CONSTRAINT IF EXISTS eurovision_artist_country_id_47605989_fk_eurovision_country_id;\n")
 
-    file.write("ALTER TABLE eurovision_song DROP CONSTRAINT IF EXISTS eurovision_song_pkey;\n")
 
     file.write(
         "ALTER TABLE eurovision_song DROP CONSTRAINT IF EXISTS eurovision_song_artist_id_id_865d0e06_fk_eurovision_artist_id;\n")
 
-    file.write("ALTER TABLE eurovision_ids DROP CONSTRAINT IF EXISTS eurovision_ids_pkey;\n")
 
     file.write(
         "ALTER TABLE eurovision_ids DROP CONSTRAINT IF EXISTS eurovision_ids_country_id_c0d299f5_fk_eurovision_country_id;\n")
 
     file.write(
         "ALTER TABLE eurovision_ids DROP CONSTRAINT IF EXISTS FK_eurovision_ids_edition_id;\n")
+
+    file.close()
+
+def drop_constraints_indexes():
+    file = open("drop_constraints_indexes.sql", "w")
+
+    file.write(
+        "ALTER TABLE eurovision_venue DROP CONSTRAINT IF EXISTS eurovision_venue_host_city_id_id_dc4c2aff_fk_eurovisio";\n")
+    file.write("DROP INDEX IF EXISTS IDX_HostCity_ID;\n")
+
+    file.write(
+        "ALTER TABLE eurovision_edition DROP CONSTRAINT IF EXISTS eurovision_edition_venue_id_id_8c70153c_fk_eurovision_venue_id;\n")
+
+    file.write(
+        "ALTER TABLE eurovision_artist DROP CONSTRAINT IF EXISTS eurovision_artist_country_id_47605989_fk_eurovision_country_id;\n")
+
+    file.write(
+        "ALTER TABLE eurovision_song DROP CONSTRAINT IF EXISTS eurovision_song_artist_id_id_865d0e06_fk_eurovision_artist_id;\n")
+
+    file.write(
+        "ALTER TABLE eurovision_ids DROP CONSTRAINT IF EXISTS eurovision_ids_country_id_c0d299f5_fk_eurovision_country_id;\n")
+
+    file.write(
+        "ALTER TABLE eurovision_ids DROP CONSTRAINT IF EXISTS eurovision_ids_edition_id_1d2c1e8a_fk_eurovision_edition_id";\n")
+    file.write("DROP INDEX IF EXISTS IDX_Venue_ID;\n")
+    file.write("DROP INDEX IF EXISTS IDX_Country_ID;\n")
+    file.write("DROP INDEX IF EXISTS IDX_Artist_ID;\n")
+    file.write("DROP INDEX IF EXISTS IDX_Country_IDD;\n")
+    file.write("DROP INDEX IF EXISTS IDX_Edition_IDD;\n")
+
+
 
     file.close()
 
