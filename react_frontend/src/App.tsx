@@ -70,7 +70,7 @@ function App() {
                     <Route path="/country/add" element={<CountryAdd />} />
 
                     <Route path="/edition" element={<AllEditions />} />
-                    <Route path="/edition/add" element={<AllEditionsStatistics />} />
+                    {/*<Route path="/edition/add" element={<AllEditionsStatistics />} />*/}
                     <Route path="/edition/:editionId/details" element={<EditionDetails />} />
                     <Route path="/edition/:editionId/edit" element={<EditionEdit />} />
                     <Route path="/edition/:editionId/delete" element={<EditionDelete />} />
