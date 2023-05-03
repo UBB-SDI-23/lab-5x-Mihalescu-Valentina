@@ -9,7 +9,6 @@ import {BACKEND_API_URL} from "../../constants";
 import axios from "axios";
 import {Venue} from "../../models/Venue";
 import {debounce} from "lodash"
-import {ToastContainer, toast} from 'react-toastify';
 
 export const VenueAdd = () => {
     const navigate = useNavigate();
@@ -55,7 +54,6 @@ export const VenueAdd = () => {
             await axios.post(`${BACKEND_API_URL}/venue/`, venue);
             navigate("/venue/");
         } catch (error) {
-            toast.error('An error occurred while adding the venue.');
             console.log(error);
         }
     };
