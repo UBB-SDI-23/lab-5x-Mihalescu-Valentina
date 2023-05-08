@@ -113,6 +113,18 @@ class VenueList(generics.ListCreateAPIView):
     serializer_class = VenueSerializer
     pagination_class = EntityPaginator
 
+class VenueViewForAutocomplete(APIView):
+    @extend_schema(request=None, responses=VenueDetailsSerializer)
+    def get(self, request):
+        query = request.query_params.get('query', None)
+        if query:
+            venues = Venue.objects.filter(Q(venue_name__icontains=query))[:10]
+        else:
+            venues = Venue.objects.all()[:10]
+
+        serialized_venues = VenueDetailsSerializer(venues, many=True)
+        return Response(serialized_venues.data)
+
 
 
 

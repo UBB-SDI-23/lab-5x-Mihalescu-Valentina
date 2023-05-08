@@ -14,7 +14,7 @@ urlpatterns = [
     path('hostcity/autocomplete/', HostCityViewForAutocomplete.as_view()),
     path('venue/', views.VenueList.as_view()),
     path('venue/<int:pk>/', views.VenueDetail.as_view()),
-    # path('venue/autocomplete/', VenueViewForAutocomplete.as_view()),
+    path('venue/autocomplete/', VenueViewForAutocomplete.as_view()),
     path('edition/', views.EditionList.as_view()),
     path('edition/<int:pk>/', views.EditionDetail.as_view()),
     path('edition/autocomplete/', EditionViewForAutocomplete.as_view()),
