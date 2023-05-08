@@ -143,7 +143,7 @@ export const HostCityFilter = () => {
                         <TableCell align="left">
                             Nb of Venues
                         </TableCell>
-                        <TableCell align="center">Operations</TableCell>
+                        <TableCell align="center">Ops</TableCell>
 
                     </TableRow>
                 </TableHead>
