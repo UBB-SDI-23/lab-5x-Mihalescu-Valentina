@@ -89,11 +89,11 @@ function App() {
                     <Route path="/song/:songId/delete" element={<SongDelete />} />
                     <Route path="/song/add" element={<SongAdd />} />
 
-                    <Route path="/idss" element={<AllIds />} />
-                    <Route path="/idss/:idsId/details" element={<IdsDetails />} />
-                    <Route path="/idss/:idsId/edit" element={<IdsEdit />} />
-                    <Route path="/idss/:idsId/delete" element={<IdsDelete />} />
-                    <Route path="/ids/add" element={<IdsAdd />} />
+                    {/*<Route path="/idss" element={<AllIds />} />*/}
+                    {/*<Route path="/idss/:idsId/details" element={<IdsDetails />} />*/}
+                    {/*<Route path="/idss/:idsId/edit" element={<IdsEdit />} />*/}
+                    {/*<Route path="/idss/:idsId/delete" element={<IdsDelete />} />*/}
+                    {/*<Route path="/ids/add" element={<IdsAdd />} />*/}
 
 
 

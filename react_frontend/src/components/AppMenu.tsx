@@ -84,15 +84,15 @@ export const AppMenu = () => {
                         Songs
                     </Button>
 
-                    <Button
-                        variant={path.startsWith("/idss") ? "outlined" : "text"}
-                        to="/idss"
-                        component={Link}
-                        color="inherit"
-                        sx={{ mr: 5 }}
-                        startIcon={<LocalLibraryIcon />}>
-                        Ids
-                    </Button>
+                    {/*<Button*/}
+                    {/*    variant={path.startsWith("/idss") ? "outlined" : "text"}*/}
+                    {/*    to="/idss"*/}
+                    {/*    component={Link}*/}
+                    {/*    color="inherit"*/}
+                    {/*    sx={{ mr: 5 }}*/}
+                    {/*    startIcon={<LocalLibraryIcon />}>*/}
+                    {/*    Ids*/}
+                    {/*</Button>*/}
                 </Toolbar>
             </AppBar>
         </Box>
