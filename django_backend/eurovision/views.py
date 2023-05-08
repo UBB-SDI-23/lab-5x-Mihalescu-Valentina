@@ -113,6 +113,24 @@ class VenueList(generics.ListCreateAPIView):
     serializer_class = VenueSerializer
     pagination_class = EntityPaginator
 
+    def get_queryset(self):
+        editions = Venue.objects.annotate(
+            nr_editions=Coalesce(Subquery(
+                Edition.objects.filter(venue_id=OuterRef('pk')).values('venue_id').annotate(
+                    count=Count('id')).values(
+                    'count')
+            ), 0)
+        )
+        return editions
+
+    def get_serializer(self, args, **kwargs):
+        serializer_class = self.get_serializer_class()
+        kwargs.setdefault("context", self.get_serializer_context())
+        serializer = serializer_class(args, **kwargs)
+        if self.request.method == "GET":
+            serializer.child.fields['nr_editions'] = serializers.IntegerField()
+        return serializer
+
 class VenueViewForAutocomplete(APIView):
     @extend_schema(request=None, responses=VenueDetailsSerializer)
     def get(self, request):
