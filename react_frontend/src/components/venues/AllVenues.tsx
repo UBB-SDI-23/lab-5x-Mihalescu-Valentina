@@ -26,7 +26,7 @@ import {Venue} from "../../models/Venue";
 import Pagination from "../Pagination";
 
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 10;
 export const AllVenues = () => {
     const [loading, setLoading] = useState(false);
     const [venues, setVenues] = useState<Venue[]>([]);
