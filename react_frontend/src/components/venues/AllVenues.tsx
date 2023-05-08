@@ -35,26 +35,26 @@ export const AllVenues = () => {
     const [totalEntities,setTotalEntities] = useState(0)
 
 
-    useEffect(() => {
-        setLoading(true);
-        axios.get(`${BACKEND_API_URL}/venue?page=${currentPage}&page_size=${entitiesPerPage}`)
-            .then((response) => response.data)
-            .then((data) => {
-                setVenues(data);
-                setTotalEntities(Math.ceil(data.count / entitiesPerPage));
-                setLoading(false);
-            });
-    }, [currentPage]);
     // useEffect(() => {
     //     setLoading(true);
-    //     fetch(`${BACKEND_API_URL}/venue?page=${currentPage}&page_size=${entitiesPerPage}`)
-    //         .then((response) => response.json())
+    //     axios.get(`${BACKEND_API_URL}/venue?page=${currentPage}&page_size=${entitiesPerPage}`)
+    //         .then((response) => response.data)
     //         .then((data) => {
-    //             setVenues(data.results);
-    //             setTotalEntities(data.count);
+    //             setVenues(data);
+    //             setTotalEntities(Math.ceil(data.count / entitiesPerPage));
     //             setLoading(false);
     //         });
     // }, [currentPage]);
+    useEffect(() => {
+        setLoading(true);
+        fetch(`${BACKEND_API_URL}/venue?page=${currentPage}&page_size=${entitiesPerPage}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setVenues(data.results);
+                setTotalEntities(data.count);
+                setLoading(false);
+            });
+    }, [currentPage]);
 
     const endIndex = currentPage * PAGE_SIZE;
     const startIndex = endIndex - PAGE_SIZE;
