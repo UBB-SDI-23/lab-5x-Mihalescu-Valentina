@@ -40,8 +40,8 @@ export const AllVenues = () => {
         axios.get(`${BACKEND_API_URL}/venue?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.data)
             .then((data) => {
-                setVenues(data);
-                setTotalEntities(Math.ceil(data.count / entitiesPerPage));
+                setVenues(data.results);
+                setTotalEntities(data.count);
                 setLoading(false);
             });
     }, [currentPage]);
