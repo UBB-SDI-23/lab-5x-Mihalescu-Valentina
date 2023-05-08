@@ -51,6 +51,7 @@ export const AllVenues = () => {
         fetch(`${BACKEND_API_URL}/venue?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.json())
             .then((data) => {
+                console.log('succes');
                 setVenues(data.results);
                 setTotalEntities(data.count);
                 setLoading(false);
