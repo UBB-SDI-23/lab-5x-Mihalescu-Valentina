@@ -9,25 +9,29 @@ import {
     CircularProgress,
     Container,
     IconButton,
-    Tooltip,
+    Tooltip, TextField, Button,
 } from "@mui/material";
 import React from "react";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {BACKEND_API_URL} from "../../../src/constants";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddIcon from "@mui/icons-material/Add";
+import SearchIcon from '@mui/icons-material/Search';
+import {BACKEND_API_URL} from "../../constants";
+import axios from "axios";
+import SortTwoToneIcon from '@mui/icons-material/SortTwoTone';
 import {HostCity} from "../../models/HostCity";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import SortTwoToneIcon from "@mui/icons-material/SortTwoTone";
+import Pagination from "../Pagination";
 
-
+const PAGE_SIZE = 10;
 export const HostCityFilter = () => {
     const [loading, setLoading] = useState(false);
     const [hostcities, setHostCities] = useState<HostCity[]>([]);
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [entitiesPerPage] = useState(50);
+    const [totalEntities,setTotalEntities] = useState(0)
     const sortHostCities = (sortingAttr: string) => {
         const sorted = [...hostcities].sort((a: HostCity, b: HostCity) => {
 
@@ -61,119 +65,126 @@ export const HostCityFilter = () => {
         setHostCities(sorted);
     }
 
-
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/filter-hostcity-by-qf/?var=600`)
-            .then((response) => response.json())
+        axios.get(`${BACKEND_API_URL}/filter-hostcity-by-qf/?var=5000/?page=${currentPage}&page_size=${entitiesPerPage}`)
+            .then((response) => response.data)
             .then((data) => {
-                setHostCities(data);
+                setHostCities(data.results);
+                setTotalEntities(data.count);
                 setLoading(false);
             });
-    }, []);
+    }, [currentPage]);
 
-    return (
-        <Container>
-            <h1>Filtered cities by quality factor</h1>
+    const endIndex = currentPage * PAGE_SIZE;
+    const startIndex = endIndex - PAGE_SIZE;
+    return <Container>
+        <h1>All host cities</h1>
 
-            {loading && <CircularProgress/>}
-            {!loading && hostcities.length === 0 && <p>No host cities that pass the filter were found</p>}
-            <IconButton component={Link} sx={{ mr: 3 }} to={`/hostcity/`}>
-                <ArrowBackIcon />
-            </IconButton>{" "}
-            {!loading && (
-                <IconButton component={Link} sx={{mr: 3}} to={`/hostcity/add`}>
-                    <Tooltip title="Add a new hostcity" arrow>
-                        <AddIcon color="primary"/>
-                    </Tooltip>
-                </IconButton>
-            )}
-            {!loading && hostcities.length > 0 && (
-                <TableContainer component={Paper}>
-                    <Table sx={{minWidth: 650}} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>#</TableCell>
-                                <TableCell align="right">Host city name
-                                    <IconButton onClick={() => {
-                                        sortHostCities("host_city_name");
-                                    }}>
-                                        <Tooltip title="Sort by the city name" arrow>
-                                            <SortTwoToneIcon color="inherit"/>
-                                        </Tooltip>
-                                    </IconButton>
-                                </TableCell>
-                                <TableCell align="right">Host city population
-                                    <IconButton onClick={() => {
-                                        sortHostCities("host_city_population");
-                                    }}>
-                                        <Tooltip title="Sort by the population" arrow>
-                                            <SortTwoToneIcon color="inherit"/>
-                                        </Tooltip>
-                                    </IconButton>
-                                </TableCell>
-                                <TableCell align="right">Host city Mayor
-                                    <IconButton onClick={() => {
-                                        sortHostCities("host_city_mayor");
-                                    }}>
-                                        <Tooltip title="Sort by the city mayor" arrow>
-                                            <SortTwoToneIcon color="inherit"/>
-                                        </Tooltip>
-                                    </IconButton>
-                                </TableCell>
-                                {/*<TableCell align="right">is capital</TableCell>*/}
-                                <TableCell align="right">quality factor
-                                    <IconButton onClick={() => {
-                                        sortHostCities("quality_factor");
-                                    }}>
-                                        <Tooltip title="Sort by the quality factor" arrow>
-                                            <SortTwoToneIcon color="inherit"/>
-                                        </Tooltip>
-                                    </IconButton>
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {hostcities.map((hostcity, index) => (
-                                <TableRow key={hostcity.id}>
-                                    <TableCell component="th" scope="row">
-                                        {index + 1}
-                                    </TableCell>
-                                    <TableCell component="th" scope="row">
-                                        <Link to={`/hostcity/${hostcity.id}/details`} title="View host city details">
-                                            {hostcity.host_city_name}
-                                        </Link>
-                                    </TableCell>
-                                    <TableCell align="right">{hostcity.host_city_population}</TableCell>
-                                    <TableCell align="right">{hostcity.host_city_mayor}</TableCell>
-                                    {/*<TableCell align="right">{hostcity.is_capital}</TableCell>*/}
-                                    <TableCell align="right">{hostcity.quality_factor}</TableCell>
-                                    <TableCell align="right">
-                                        <IconButton
-                                            component={Link}
-                                            sx={{mr: 3}}
-                                            to={`/hostcity/${hostcity.id}/details`}>
-                                            <Tooltip title="View hostcity details" arrow>
-                                                <ReadMoreIcon color="primary"/>
-                                            </Tooltip>
-                                        </IconButton>
+        {loading && <CircularProgress/>}
+        {!loading && hostcities.length === 0 && <p>No hostcities found</p>}
+        {!loading && hostcities.length > 0 && <Container sx={{position: "absolute", left: 930, top: 100}}>
+        </Container>}
+        {!loading && <IconButton component={Link} sx={{mr: 3}} to={`/hostcity/add`}>
+            <Tooltip title="Add a new hostcity" arrow>
+                <AddIcon color="inherit"/>
+            </Tooltip>
+        </IconButton>}
+        {!loading && (
+            <Button component={Link} sx={{mr: 3}} to={`/hostcity/filter`}>Filter
+            </Button>
 
-                                        <IconButton component={Link} sx={{mr: 3}} to={`/hostcity/${hostcity.id}/edit`}>
-                                            <EditIcon/>
-                                        </IconButton>
+        )}
+        {!loading && hostcities.length > 0 && <TableContainer component={Paper}>
+            <Table sx={{minWidth: 650}} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell align="left">#</TableCell>
+                        <TableCell align="left">
+                            Name
+                            <IconButton onClick={() => {
+                                sortHostCities("host_city_name");
+                            }}>
+                                <Tooltip title="Sort by the city name" arrow>
+                                    <SortTwoToneIcon color="inherit"/>
+                                </Tooltip>
+                            </IconButton>
+                        </TableCell>
+                        <TableCell align="left">
+                            Population
+                            <IconButton onClick={() => {
+                                sortHostCities("host_city_population");
+                            }}>
+                                <Tooltip title="Sort by population" arrow>
+                                    <SortTwoToneIcon color="inherit"/>
+                                </Tooltip>
+                            </IconButton>
+                        </TableCell>
+                        <TableCell align="left">
+                            Mayor
+                            <IconButton onClick={() => {
+                                sortHostCities("host_city_mayor");
+                            }}>
+                                <Tooltip title="Sort by mayor" arrow>
+                                    <SortTwoToneIcon color="inherit"/>
+                                </Tooltip>
+                            </IconButton>
+                        </TableCell>
+                        <TableCell align="left">
+                            Quality factor
+                            <IconButton onClick={() => {
+                                sortHostCities("quality_factor");
+                            }}>
+                                <Tooltip title="Sort by quality_factor" arrow>
+                                    <SortTwoToneIcon color="inherit"/>
+                                </Tooltip>
+                            </IconButton>
+                        </TableCell>
+                        <TableCell align="left">
+                            Nb of Venues
+                        </TableCell>
+                        <TableCell align="center">Operations</TableCell>
 
-                                        <IconButton component={Link} sx={{mr: 3}}
-                                                    to={`/hostcity/${hostcity.id}/delete`}>
-                                            <DeleteForeverIcon sx={{color: "red"}}/>
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            )}
-        </Container>
-    );
-};
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {hostcities.map((hostcity, index) => <TableRow key={hostcity.id}>
+                        <TableCell component="th" scope="row">
+                            {startIndex+index + 1}
+                        </TableCell>
+                        <TableCell align="right">{hostcity.host_city_name}</TableCell>
+                        <TableCell align="right">{hostcity.host_city_population}</TableCell>
+                        <TableCell align="right">{hostcity.host_city_mayor}</TableCell>
+                        <TableCell align="right">{hostcity.quality_factor}</TableCell>
+                        <TableCell align="right">{hostcity.nb_venues}</TableCell>
+                        <TableCell align="right">
+                            <IconButton
+                                component={Link}
+                                sx={{mr: 3}}
+                                to={`/hostcity/${hostcity.id}/details`}>
+                                <Tooltip title="View hostcity details" arrow>
+                                    <ReadMoreIcon color="primary"/>
+                                </Tooltip>
+                            </IconButton>
 
+                            <IconButton component={Link} sx={{mr: 3}} to={`/hostcity/${hostcity.id}/edit`}>
+                                <EditIcon/>
+                            </IconButton>
+
+                            <IconButton component={Link} sx={{mr: 3}}
+                                        to={`/hostcity/${hostcity.id}/delete`}>
+                                <DeleteForeverIcon sx={{color: "red"}}/>
+                            </IconButton>
+                        </TableCell>
+                    </TableRow>)}
+                </TableBody>
+            </Table>
+        </TableContainer>}
+        <Pagination
+            entitiesPerPage={entitiesPerPage}
+            totalPages={totalEntities}
+            currentPage={currentPage}
+            paginate={(pageNumber: number) => setCurrentPage(pageNumber)}
+        />
+    </Container>;
+}
