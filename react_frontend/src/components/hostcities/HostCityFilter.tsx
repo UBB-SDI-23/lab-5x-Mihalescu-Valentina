@@ -67,8 +67,7 @@ export const HostCityFilter = () => {
 
     useEffect(() => {
         setLoading(true);
-        let nr = 5000;
-        axios.get(`${BACKEND_API_URL}/filter-hostcity-by-qf/?var=${nr}/?page=${currentPage}&page_size=${entitiesPerPage}`)
+        axios.get(`${BACKEND_API_URL}/filter-hostcity-by-qf/?var=5000/?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.data)
             .then((data) => {
                 setHostCities(data.results);
