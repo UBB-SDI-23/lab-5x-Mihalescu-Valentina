@@ -17,7 +17,7 @@ class HostCitySerializer(serializers.ModelSerializer):
 class VenueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venue
-        fields = ('id', 'venue_name', 'venue_adress', 'capacity', 'rating', 'host_city_id','nb_editions')
+        fields = ('id', 'venue_name', 'venue_adress', 'capacity', 'rating', 'host_city_id')
 
 
 class EditionSerializer(serializers.ModelSerializer):
@@ -48,6 +48,7 @@ class EditionDetailsSerializer(serializers.ModelSerializer):
 class VenueDetailsSerializer(serializers.ModelSerializer):
     host_city_id = HostCitySerializer(read_only=True)
     editions = EditionSerializer(read_only=True, many=True)
+
 
     class Meta:
         model = Venue
