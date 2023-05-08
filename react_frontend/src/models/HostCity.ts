@@ -5,6 +5,5 @@ export interface HostCity{
     host_city_mayor : string;
     is_capital : boolean;
     quality_factor : number;
-
     nb_venues: number;
 }
