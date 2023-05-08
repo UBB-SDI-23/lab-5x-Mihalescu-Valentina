@@ -78,7 +78,7 @@ export const AllCountries = () => {
                                     <TableCell component="th" scope="row">
                                         {startIndex + index + 1}
                                     </TableCell>
-                                    <TableCell component="th" scope="row">
+                                    <TableCell align = "right" component="th" scope="row">
                                         <Link to={`/country/${country.id}/details`} title="View course details">
                                             {country.country_name}
                                         </Link>
