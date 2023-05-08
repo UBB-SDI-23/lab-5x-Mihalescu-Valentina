@@ -100,7 +100,7 @@ export const AllVenues = () => {
 
                                     <TableCell align="right">{venue?.capacity}</TableCell>
                                     <TableCell align="right">{venue?.rating}</TableCell>
-                                    <TableCell align="right">{venue?.nb_editions}</TableCell>
+                                    {/*<TableCell align="right">{venue?.nb_editions}</TableCell>*/}
                                     <TableCell align="right">
                                         <IconButton
                                             component={Link}

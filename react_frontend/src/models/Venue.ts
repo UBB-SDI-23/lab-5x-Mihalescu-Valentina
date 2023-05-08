@@ -10,5 +10,5 @@ export interface Venue {
     capacity : number;
     rating : number;
 
-    nb_editions:number;
+    // nb_editions:number;
 }

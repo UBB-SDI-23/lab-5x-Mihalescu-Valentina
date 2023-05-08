@@ -19,7 +19,7 @@ export const VenueAdd = () => {
         capacity: 1,
         rating: 1,
         id: 1,
-        nb_editions:0,
+        // nb_editions:0,
     });
 
     const [localError, setLocalError] = useState({
