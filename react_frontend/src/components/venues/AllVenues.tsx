@@ -46,6 +46,7 @@ export const AllVenues = () => {
     //         });
     // }, [currentPage]);
     useEffect(() => {
+        console.log("intra aici")
         setLoading(true);
         fetch(`${BACKEND_API_URL}/venue?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.json())
@@ -53,9 +54,10 @@ export const AllVenues = () => {
                 setVenues(data.results);
                 setTotalEntities(data.count);
                 setLoading(false);
+                console.log(data.result);
             });
     }, [currentPage]);
-
+    console.log("hei");
     const endIndex = currentPage * PAGE_SIZE;
     const startIndex = endIndex - PAGE_SIZE;
     return (
