@@ -27,7 +27,8 @@ class EntityPaginator(PageNumberPagination):
 
 
 class CountryList(generics.ListCreateAPIView):
-    queryset = Country.objects.all().order_by('id')
+    # queryset = Country.objects.all().order_by('id')
+    queryset = Country.objects.annotate(edition_nr=Count('edition')).order_by('id')
     serializer_class = CountrySerializer
     pagination_class = EntityPaginator
 

@@ -22,7 +22,7 @@ import AddIcon from "@mui/icons-material/Add";
 import {Edition} from "../../models/Edition";
 import Pagination from "../Pagination";
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 50;
 export const AllEditionsStatistics = () => {
     const [loading, setLoading] = useState(false);
     const [editions, setEditions] = useState<Edition[]>([]);
