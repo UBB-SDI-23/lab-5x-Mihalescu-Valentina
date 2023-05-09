@@ -136,10 +136,10 @@ export const HostCityFilter = () => {
                                 </Tooltip>
                             </IconButton>
                         </TableCell>
-                        <TableCell align="left">
-                            Nb of Venues
-                        </TableCell>
-                        <TableCell align="center">Ops</TableCell>
+                        {/*<TableCell align="left">*/}
+                        {/*    Nb of Venues*/}
+                        {/*</TableCell>*/}
+                        <TableCell align="center">Operations</TableCell>
 
                     </TableRow>
                 </TableHead>
@@ -152,7 +152,7 @@ export const HostCityFilter = () => {
                         <TableCell align="right">{hostcity.host_city_population}</TableCell>
                         <TableCell align="right">{hostcity.host_city_mayor}</TableCell>
                         <TableCell align="right">{hostcity.quality_factor}</TableCell>
-                        <TableCell align="right">{hostcity.nb_venues}</TableCell>
+                        {/*<TableCell align="right">{hostcity.nb_venues}</TableCell>*/}
                         <TableCell align="right">
                             <IconButton
                                 component={Link}
