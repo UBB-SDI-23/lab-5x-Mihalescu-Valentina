@@ -3,10 +3,10 @@ from .models import Country, HostCity, Venue, Edition, Song, Artist, Ids
 
 
 class CountrySerializer(serializers.ModelSerializer):
-
+    edition_nr = serializers.IntegerField(read_only=True)
     class Meta:
         model = Country
-        fields = ('id', 'country_name', 'year_of_entrance', 'country_capital', 'quality_factor')
+        fields = ('id', 'country_name', 'year_of_entrance', 'country_capital', 'quality_factor', 'edition_nr')
 
 
 class HostCitySerializer(serializers.ModelSerializer):
