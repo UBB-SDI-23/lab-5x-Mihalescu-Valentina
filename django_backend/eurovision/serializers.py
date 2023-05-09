@@ -12,7 +12,7 @@ class CountrySerializer(serializers.ModelSerializer):
 class HostCitySerializer(serializers.ModelSerializer):
     class Meta:
         model = HostCity
-        fields = ('__all__')
+        fields = ('id', 'host_city_name', 'host_city_population', 'host_city_mayor', 'is_capital', 'quality_factor')
 
 
 class VenueSerializer(serializers.ModelSerializer):
