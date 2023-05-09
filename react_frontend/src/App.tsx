@@ -55,7 +55,7 @@ function App() {
                     <Route path="/hostcity/:hostCityId/edit" element={<HostCityEdit />} />
                     <Route path="/hostcity/:hostCityId/delete" element={<HostCityDelete />} />
                     <Route path="/hostcity/add" element={<HostCityAdd />} />
-                    <Route path="/filter-hostcity-by-qf" element={<HostCityFilter />} />
+                    <Route path="/filter" element={<HostCityFilter />} />
 
                     <Route path="/venue" element={<AllVenues />} />
                     <Route path="/venue/:venueId/details" element={<VenueDetails />} />
