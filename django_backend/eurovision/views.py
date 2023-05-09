@@ -130,10 +130,10 @@ class VenueList(generics.ListCreateAPIView):
     #     if self.request.method == "GET":
     #         serializer.child.fields['nr_editions'] = serializers.IntegerField()
     #     return serializer
-    def get_serializer(self, request, **kwargs):
+    def get_serializer(self, request, *args, **kwargs):
         serializer_class = self.get_serializer_class()
         kwargs.setdefault("context", self.get_serializer_context())
-        serializer = serializer_class( **kwargs)
+        serializer = serializer_class(*args, **kwargs)
         if self.request.method == "GET":
             serializer.child.fields['nr_editions'] = serializers.IntegerField()
         return serializer
