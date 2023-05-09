@@ -78,6 +78,7 @@ export const AllEditions = () => {
                                 <TableCell align="right">Year</TableCell>
                                 <TableCell align="right">Final date</TableCell>
                                 <TableCell align="right">Motto</TableCell>
+                                <TableCell align="right">Country NR</TableCell>
                                 <TableCell align="right">Operations</TableCell>
                             </TableRow>
                         </TableHead>
@@ -94,6 +95,7 @@ export const AllEditions = () => {
                                     </TableCell>
                                     <TableCell align="right">{edition.final_date.toString()}</TableCell>
                                     <TableCell align="right">{edition.motto}</TableCell>
+                                    <TableCell align="right">{edition.country_nr}</TableCell>
                                     <TableCell align="right">
                                         <IconButton
                                             component={Link}

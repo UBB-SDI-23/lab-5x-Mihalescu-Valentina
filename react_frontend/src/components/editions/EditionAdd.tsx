@@ -28,6 +28,7 @@ export const EditionAdd = () => {
         final_date: new Date(),
         motto: " ",
         id: 1,
+        country_nr:0,
     });
 
 

@@ -8,5 +8,7 @@ export interface Edition {
     motto : string;
     venue_id? : number | Venue;
     countries? : Country[];
+    
+    country_nr: number;
 
 }
