@@ -8,4 +8,6 @@ export interface Country {
     quality_factor : number;
     editions? : Edition[];
 
+    edition_nr:number;
+
 }

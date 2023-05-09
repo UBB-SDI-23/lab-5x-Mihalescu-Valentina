@@ -10,5 +10,6 @@ export interface Edition {
     countries? : Country[];
     
     country_nr: number;
+    avg_qf:number;
 
 }

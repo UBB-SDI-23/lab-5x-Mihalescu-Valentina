@@ -9,7 +9,7 @@ import {
     CircularProgress,
     Container,
     IconButton,
-    Tooltip, Button,
+    Tooltip,
 } from "@mui/material";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -23,7 +23,7 @@ import {Edition} from "../../models/Edition";
 import Pagination from "../Pagination";
 
 const PAGE_SIZE = 50;
-export const AllEditions = () => {
+export const Statistics2 = () => {
     const [loading, setLoading] = useState(false);
     const [editions, setEditions] = useState<Edition[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -32,7 +32,7 @@ export const AllEditions = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/edition?page=${currentPage}&page_size=${entitiesPerPage}`)
+        fetch(`${BACKEND_API_URL}/edition/by-avg-qf?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.json())
             .then((data) => {
                 setEditions(data.results);
@@ -45,7 +45,7 @@ export const AllEditions = () => {
     const startIndex = endIndex - PAGE_SIZE;
     return (
         <Container>
-            <h1>All editions</h1>
+            <h1>All editions ordered desc by the average of the quality factor</h1>
 
             {loading && <CircularProgress />}
             {!loading && editions.length === 0 && <p>No editions found</p>}
@@ -57,17 +57,6 @@ export const AllEditions = () => {
                 </IconButton>
             )}
 
-            {!loading && (
-                <Button component={Link} sx={{mr: 3}} to={`/edition/by-country-nr/`}>Statistic1
-                </Button>
-
-            )}
-
-            {!loading && (
-                <Button component={Link} sx={{mr: 3}} to={`/edition/by-avg-qf/`}>Statistic2
-                </Button>
-
-            )}
 
             {!loading && editions.length > 0 && (
                 <TableContainer component={Paper}>
@@ -78,7 +67,7 @@ export const AllEditions = () => {
                                 <TableCell align="right">Year</TableCell>
                                 <TableCell align="right">Final date</TableCell>
                                 <TableCell align="right">Motto</TableCell>
-                                <TableCell align="right">Country NR</TableCell>
+                                <TableCell align="right">Average quality factor</TableCell>
                                 <TableCell align="right">Operations</TableCell>
                             </TableRow>
                         </TableHead>
@@ -95,7 +84,7 @@ export const AllEditions = () => {
                                     </TableCell>
                                     <TableCell align="right">{edition.final_date.toString()}</TableCell>
                                     <TableCell align="right">{edition.motto}</TableCell>
-                                    <TableCell align="right">{edition.country_nr}</TableCell>
+                                    <TableCell align="right">{edition.avg_qf}</TableCell>
                                     <TableCell align="right">
                                         <IconButton
                                             component={Link}

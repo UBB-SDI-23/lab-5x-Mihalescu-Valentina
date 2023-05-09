@@ -29,6 +29,7 @@ export const EditionAdd = () => {
         motto: " ",
         id: 1,
         country_nr:0,
+        avg_qf:0,
     });
 
 

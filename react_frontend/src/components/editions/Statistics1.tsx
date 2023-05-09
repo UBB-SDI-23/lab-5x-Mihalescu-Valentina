@@ -23,7 +23,7 @@ import {Edition} from "../../models/Edition";
 import Pagination from "../Pagination";
 
 const PAGE_SIZE = 50;
-export const AllEditionsStatistics = () => {
+export const Statistics1 = () => {
     const [loading, setLoading] = useState(false);
     const [editions, setEditions] = useState<Edition[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -45,7 +45,7 @@ export const AllEditionsStatistics = () => {
     const startIndex = endIndex - PAGE_SIZE;
     return (
         <Container>
-            <h1>All editions</h1>
+            <h1>All editions ordered desc by the nr of countries</h1>
 
             {loading && <CircularProgress />}
             {!loading && editions.length === 0 && <p>No editions found</p>}
@@ -67,6 +67,7 @@ export const AllEditionsStatistics = () => {
                                 <TableCell align="right">Year</TableCell>
                                 <TableCell align="right">Final date</TableCell>
                                 <TableCell align="right">Motto</TableCell>
+                                <TableCell align="right">Country NR</TableCell>
                                 <TableCell align="right">Operations</TableCell>
                             </TableRow>
                         </TableHead>
@@ -83,6 +84,7 @@ export const AllEditionsStatistics = () => {
                                     </TableCell>
                                     <TableCell align="right">{edition.final_date.toString()}</TableCell>
                                     <TableCell align="right">{edition.motto}</TableCell>
+                                    <TableCell align="right">{edition.country_nr}</TableCell>
                                     <TableCell align="right">
                                         <IconButton
                                             component={Link}

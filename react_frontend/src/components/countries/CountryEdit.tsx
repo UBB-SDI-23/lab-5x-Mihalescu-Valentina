@@ -21,6 +21,7 @@ export const CountryEdit = () => {
         year_of_entrance: 1,
         country_capital: " ",
         quality_factor: 1,
+        edition_nr:0,
     });
 
     useEffect(() => {

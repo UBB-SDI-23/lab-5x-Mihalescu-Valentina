@@ -22,7 +22,7 @@ import AddIcon from "@mui/icons-material/Add";
 import {Song} from "../../models/Song";
 import Pagination from "../Pagination";
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 50;
 
 export const AllSongs = () => {
     const [loading, setLoading] = useState(false);

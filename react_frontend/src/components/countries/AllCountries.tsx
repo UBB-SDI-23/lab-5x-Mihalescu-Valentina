@@ -23,7 +23,7 @@ import {Country} from "../../models/Country";
 import Pagination from "../Pagination";
 
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 50;
 export const AllCountries = () => {
     const [loading, setLoading] = useState(false);
     const [countries, setCountries] = useState<Country[]>([]);
@@ -69,6 +69,7 @@ export const AllCountries = () => {
                                 <TableCell align="right">Year of entrance</TableCell>
                                 <TableCell align="right">Capital</TableCell>
                                 <TableCell align="center">Quality factor</TableCell>
+                                <TableCell align="center">Edition NR</TableCell>
                                 <TableCell align="center">Operations</TableCell>
                             </TableRow>
                         </TableHead>
@@ -86,6 +87,7 @@ export const AllCountries = () => {
                                     <TableCell align="right">{country.year_of_entrance}</TableCell>
                                     <TableCell align="right">{country.country_capital}</TableCell>
                                     <TableCell align="right">{country.quality_factor}</TableCell>
+                                    <TableCell align="right">{country.edition_nr}</TableCell>
                                     <TableCell align="right">
                                         <IconButton
                                             component={Link}
