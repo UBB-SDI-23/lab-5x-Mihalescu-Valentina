@@ -34,15 +34,15 @@ export const AppMenu = () => {
                         HostCities
                     </Button>
 
-                    {/*<Button*/}
-                    {/*    variant={path.startsWith("/venue") ? "outlined" : "text"}*/}
-                    {/*    to="/venue"*/}
-                    {/*    component={Link}*/}
-                    {/*    color="inherit"*/}
-                    {/*    sx={{ mr: 5 }}*/}
-                    {/*    startIcon={<LocalLibraryIcon />}>*/}
-                    {/*    Venues*/}
-                    {/*</Button>*/}
+                    <Button
+                        variant={path.startsWith("/venue") ? "outlined" : "text"}
+                        to="/venue"
+                        component={Link}
+                        color="inherit"
+                        sx={{ mr: 5 }}
+                        startIcon={<LocalLibraryIcon />}>
+                        Venues
+                    </Button>
 
                     <Button
                         variant={path.startsWith("/country") ? "outlined" : "text"}

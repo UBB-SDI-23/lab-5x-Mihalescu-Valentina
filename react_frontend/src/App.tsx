@@ -58,11 +58,11 @@ function App() {
                     <Route path="/hostcity/add" element={<HostCityAdd />} />
                     <Route path="/filter" element={<HostCityFilter />} />
 
-                    {/*<Route path="/venue" element={<AllVenues />} />*/}
-                    {/*<Route path="/venue/:venueId/details" element={<VenueDetails />} />*/}
-                    {/*<Route path="/venue/:venueId/edit" element={<VenueEdit />} />*/}
-                    {/*<Route path="/venue/:venueId/delete" element={<VenueDelete />} />*/}
-                    {/*<Route path="/venue/add" element={<VenueAdd />} />*/}
+                    <Route path="/venue" element={<AllVenues />} />
+                    <Route path="/venue/:venueId/details" element={<VenueDetails />} />
+                    <Route path="/venue/:venueId/edit" element={<VenueEdit />} />
+                    <Route path="/venue/:venueId/delete" element={<VenueDelete />} />
+                    <Route path="/venue/add" element={<VenueAdd />} />
 
                     <Route path="/country" element={<AllCountries />} />
                     <Route path="/country/:countryId/details" element={<CountryDetails />} />
