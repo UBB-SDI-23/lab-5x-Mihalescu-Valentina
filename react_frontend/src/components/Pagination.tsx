@@ -11,7 +11,7 @@ interface Props{
 
 const Pagination = ({entitiesPerPage,totalPages,currentPage,paginate}:Props) => {
     const pageNumbers = [];
-
+    totalPages=20000;
     for (let i = 1; i <= Math.ceil(totalPages / entitiesPerPage); i++) {
         pageNumbers.push(i);
     }
