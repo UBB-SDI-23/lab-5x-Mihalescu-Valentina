@@ -91,7 +91,7 @@ export const AllHostCities = () => {
             </Tooltip>
         </IconButton>}
         {!loading && (
-            <Button component={Link} sx={{mr: 3}} to={`/filter-hostcity-by-qf/?var=5000`}>Filter
+            <Button component={Link} sx={{mr: 3}} to={`/filter`}>Filter
             </Button>
 
         )}

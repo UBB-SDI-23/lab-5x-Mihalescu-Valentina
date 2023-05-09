@@ -25,7 +25,7 @@ import SortTwoToneIcon from '@mui/icons-material/SortTwoTone';
 import {HostCity} from "../../models/HostCity";
 import Pagination from "../Pagination";
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 50;
 export const HostCityFilter = () => {
     const [loading, setLoading] = useState(false);
     const [hostcities, setHostCities] = useState<HostCity[]>([]);
@@ -67,7 +67,7 @@ export const HostCityFilter = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`${BACKEND_API_URL}/filter-hostcity-by-qf/?var=5000/?page=${currentPage}&page_size=${entitiesPerPage}`)
+        axios.get(`${BACKEND_API_URL}/filter-hostcity-by-qf/?var=5000&page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.data)
             .then((data) => {
                 setHostCities(data.results);
