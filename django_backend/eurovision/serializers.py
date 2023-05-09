@@ -3,6 +3,7 @@ from .models import Country, HostCity, Venue, Edition, Song, Artist, Ids
 
 
 class CountrySerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Country
         fields = ('id', 'country_name', 'year_of_entrance', 'country_capital', 'quality_factor')
@@ -49,7 +50,6 @@ class VenueDetailsSerializer(serializers.ModelSerializer):
     host_city_id = HostCitySerializer(read_only=True)
     editions = EditionSerializer(read_only=True, many=True)
 
-
     class Meta:
         model = Venue
         fields = ('id', 'venue_name', 'venue_adress', 'host_city_id', 'capacity', 'rating', 'editions')
@@ -60,7 +60,7 @@ class HostCityDetailsSerializer(serializers.ModelSerializer):
 
     def validate_hostcity_population(self, hostcity_population):
         if hostcity_population is not None:
-            if hostcity_population<1000:
+            if hostcity_population < 1000:
                 raise serializers.ValidationError("HostCity Population should be greater than 1000 ")
         return hostcity_population
 
@@ -85,7 +85,6 @@ class SongSerializer(serializers.ModelSerializer):
 class SongDetailsSerializer(serializers.ModelSerializer):
     artist_id = ArtistSerializer(read_only=True)
 
-
     class Meta:
         model = Song
         fields = ('id', 'song_name', 'artist_id', 'release_date', 'album_name')
@@ -105,6 +104,7 @@ class IdsSerializer(serializers.ModelSerializer):
         model = Ids
         fields = ('id', 'edition', 'country', 'place', 'points')
 
+
 class IdsDetailsSerializer(serializers.ModelSerializer):
     edition = EditionSerializer(read_only=True)
     country = CountrySerializer(read_only=True)
@@ -112,9 +112,6 @@ class IdsDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ids
         fields = ('id', 'edition', 'country', 'place', 'points')
-
-
-
 
 
 class CountryDetailsSerializer(serializers.ModelSerializer):

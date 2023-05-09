@@ -161,7 +161,8 @@ class VenueDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class EditionList(generics.ListCreateAPIView):
-    queryset = Edition.objects.all().order_by('id')
+    # queryset = Edition.objects.all().order_by('id')
+    queryset = Edition.objects.annotate(country_nr=Count('country')).order_by('id')
     serializer_class = EditionSerializer
     pagination_class = EntityPaginator
 
@@ -175,6 +176,7 @@ class ArtistList(generics.ListCreateAPIView):
     queryset = Artist.objects.all().order_by('id')
     serializer_class = ArtistSerializer
     pagination_class = EntityPaginator
+
 
 
 class ArtistDetail(generics.RetrieveUpdateDestroyAPIView):
