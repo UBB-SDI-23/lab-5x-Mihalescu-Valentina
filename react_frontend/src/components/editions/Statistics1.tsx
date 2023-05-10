@@ -57,6 +57,19 @@ export const Statistics1 = () => {
         setEditions(sorted);
     }
 
+    // useEffect(() => {
+    //     setLoading(true);
+    //     const apiUrl = `${BACKEND_API_URL}/edition?page=${currentPage}&page_size=${entitiesPerPage}&ordering=-country_nr`;
+    //
+    //     fetch(apiUrl)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setEditions(data.results);
+    //             sortEditions("country_nr");
+    //             setTotalEntities(data.count);
+    //             setLoading(false);
+    //         });
+    // }, [currentPage, entitiesPerPage]);
     useEffect(() => {
         setLoading(true);
         const apiUrl = `${BACKEND_API_URL}/edition?page=${currentPage}&page_size=${entitiesPerPage}&ordering=-country_nr`;
@@ -64,12 +77,15 @@ export const Statistics1 = () => {
         fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
-                setEditions(data.results);
-                sortEditions("country_nr");
+                // Sort the editions based on the "country_nr" field
+                const sortedEditions = data.results.sort((a: Edition, b: Edition) => a.country_nr - b.country_nr);
+
+                setEditions(sortedEditions);
                 setTotalEntities(data.count);
                 setLoading(false);
             });
     }, [currentPage, entitiesPerPage]);
+
 
 
 
