@@ -33,7 +33,7 @@ export const AllEditions = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/edition?page=${currentPage}&page_size=${entitiesPerPage}`)
+        fetch(`${BACKEND_API_URL}/edition/by-country-nr?page=${currentPage}&page_size=${entitiesPerPage}`)
             .then((response) => response.json())
             .then((data) => {
                 setEditions(data.results);
