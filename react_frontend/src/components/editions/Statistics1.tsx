@@ -93,7 +93,7 @@ export const Statistics1 = () => {
     const startIndex = endIndex - PAGE_SIZE;
     return (
         <Container>
-            <h1>All editions ordered desc by the nr of countries</h1>
+            <h1>All editions ordered asc by the nr of countries</h1>
 
             {loading && <CircularProgress />}
             {!loading && editions.length === 0 && <p>No editions found</p>}

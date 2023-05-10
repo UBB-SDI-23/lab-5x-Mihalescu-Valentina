@@ -9,7 +9,7 @@ import {
     CircularProgress,
     Container,
     IconButton,
-    Tooltip,
+    Tooltip, Button,
 } from "@mui/material";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -46,6 +46,7 @@ export const AllCountries = () => {
     const endIndex = currentPage * PAGE_SIZE;
     const startIndex = endIndex - PAGE_SIZE;
 
+
     return (
         <Container>
             <h1>All countries</h1>
@@ -59,6 +60,14 @@ export const AllCountries = () => {
                     </Tooltip>
                 </IconButton>
             )}
+
+            {!loading && (
+                <Button component={Link} sx={{mr: 3}} to={`/country/by-edition-nr/`}>Statistic2
+                </Button>
+
+
+            )}
+
             {!loading && countries.length > 0 && (
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
