@@ -11,7 +11,7 @@ interface Props{
 
 const Pagination = ({entitiesPerPage,totalPages,currentPage,paginate}:Props) => {
     const pageNumbers = [];
-    //totalPages=20000;
+    totalPages=10000;
     for (let i = 1; i <= Math.ceil(totalPages / entitiesPerPage); i++) {
         pageNumbers.push(i);
     }
@@ -54,7 +54,6 @@ const Pagination = ({entitiesPerPage,totalPages,currentPage,paginate}:Props) => 
         const MAX_PAGES = 10; // maximum number of page links to show
         const range = [];
         let start = 1;
-        totalPages = 10000;
         let end = totalPages;
 
         // Calculate the start and end of the range based on the current page
