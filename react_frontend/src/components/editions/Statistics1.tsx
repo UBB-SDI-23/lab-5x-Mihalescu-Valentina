@@ -42,6 +42,21 @@ export const Statistics1 = () => {
     //         });
     // }, [currentPage]);
 
+
+    const sortEditions = (sortingAttr: string) => {
+        const sorted = [...editions].sort((a: Edition, b: Edition) => {
+
+            if (sortingAttr == "country_nr") {
+                if (a.country_nr < b.country_nr)
+                    return -1;
+                return 1;
+            }
+
+            return 0;
+        })
+        setEditions(sorted);
+    }
+
     useEffect(() => {
         setLoading(true);
         const apiUrl = `${BACKEND_API_URL}/edition?page=${currentPage}&page_size=${entitiesPerPage}&ordering=-country_nr`;
@@ -50,6 +65,7 @@ export const Statistics1 = () => {
             .then((response) => response.json())
             .then((data) => {
                 setEditions(data.results);
+                sortEditions("country_nr");
                 setTotalEntities(data.count);
                 setLoading(false);
             });
