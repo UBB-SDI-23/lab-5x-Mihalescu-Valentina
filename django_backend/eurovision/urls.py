@@ -8,6 +8,7 @@ urlpatterns = [
     path('country/', views.CountryList.as_view()),
     path('country/<int:pk>/', views.CountryDetail.as_view()),
     path('country/autocomplete/', CountryViewForAutocomplete.as_view()),
+    path('country/by-edition-nr/', views.CountryByEditionNR.as_view()),
     path('filter/', views.CountryFilter.as_view()),
     path('hostcity/', views.HostCityList.as_view()),
     path('hostcity/<int:pk>/', views.HostCityDetail.as_view()),
