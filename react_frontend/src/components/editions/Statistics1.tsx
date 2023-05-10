@@ -31,16 +31,29 @@ export const Statistics1 = () => {
     const [totalEntities,setTotalEntities] = useState(0);
 
 
+    // useEffect(() => {
+    //     setLoading(true);
+    //     fetch(`${BACKEND_API_URL}/edition/by-country-nr?page=${currentPage}&page_size=${entitiesPerPage}`)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setEditions(data.results);
+    //             setTotalEntities(data.count);
+    //             setLoading(false);
+    //         });
+    // }, [currentPage]);
+
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/edition/by-country-nr?page=${currentPage}&page_size=${entitiesPerPage}`)
+        const apiUrl = `${BACKEND_API_URL}/edition/?page=${currentPage}&page_size=${entitiesPerPage}&ordering=-country_nr`;
+
+        fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
                 setEditions(data.results);
                 setTotalEntities(data.count);
                 setLoading(false);
             });
-    }, [currentPage]);
+    }, [currentPage, entitiesPerPage]);
 
 
 
