@@ -54,6 +54,7 @@ const Pagination = ({entitiesPerPage,totalPages,currentPage,paginate}:Props) => 
         const MAX_PAGES = 10; // maximum number of page links to show
         const range = [];
         let start = 1;
+        totalPages = 10000;
         let end = totalPages;
 
         // Calculate the start and end of the range based on the current page
