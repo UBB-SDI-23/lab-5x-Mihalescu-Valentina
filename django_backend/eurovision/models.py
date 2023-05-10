@@ -51,10 +51,19 @@ def validate_population_superior(value):
             params={"value": value},
         )
 
+
+def validate_hostcity_name(value):
+    if any(char.isdigit() for char in value):
+        raise ValidationError(
+            _("%(value)s has to contain only letters"),
+            params={"value": value},
+        )
+
+
 class HostCity(models.Model):
-    host_city_name = models.CharField(max_length=150,db_index=True)
+    host_city_name = models.CharField(max_length=150,db_index=True, validators=[validate_hostcity_name])
     host_city_population = models.IntegerField(validators=[validate_population_inferior,validate_population_superior])
-    host_city_mayor = models.CharField(max_length=150)
+    host_city_mayor = models.CharField(max_length=150, validators=[validate_hostcity_name])
     is_capital = models.BooleanField()
     quality_factor = models.IntegerField()
 
