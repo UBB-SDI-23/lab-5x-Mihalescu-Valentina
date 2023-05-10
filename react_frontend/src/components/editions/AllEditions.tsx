@@ -28,18 +28,41 @@ export const AllEditions = () => {
     const [editions, setEditions] = useState<Edition[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [entitiesPerPage] = useState(50);
-    const [totalEntities,setTotalEntities] = useState(0)
+    const [totalEntities,setTotalEntities] = useState(0);
+    const [activeButton, setActiveButton] = useState("");
+
+    // useEffect(() => {
+    //     setLoading(true);
+    //     fetch(`${BACKEND_API_URL}/edition?page=${currentPage}&page_size=${entitiesPerPage}`)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setEditions(data.results);
+    //             setTotalEntities(data.count);
+    //             setLoading(false);
+    //         });
+    // }, [currentPage]);
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/edition?page=${currentPage}&page_size=${entitiesPerPage}`)
+
+        let apiUrl = `${BACKEND_API_URL}/edition`;
+
+        if (activeButton === "by-country-nr") {
+            apiUrl += "/by-country-nr";
+        } else if (activeButton === "by-avg-qf") {
+            apiUrl += "/by-avg-qf";
+        }
+
+        apiUrl += `?page=${currentPage}&page_size=${entitiesPerPage}`;
+
+        fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
                 setEditions(data.results);
                 setTotalEntities(data.count);
                 setLoading(false);
             });
-    }, [currentPage]);
+    }, [activeButton, currentPage, entitiesPerPage]);
 
     const endIndex = currentPage * PAGE_SIZE;
     const startIndex = endIndex - PAGE_SIZE;
@@ -58,13 +81,30 @@ export const AllEditions = () => {
             )}
 
             {!loading && (
-                <Button component={Link} sx={{mr: 3}} to={`/edition/by-country-nr/`}>Statistic1
+                // <Button component={Link} sx={{mr: 3}} to={`/edition/by-country-nr/`}>Statistic1
+                // </Button>
+
+                <Button
+                    component={Link}
+                    sx={{mr: 3}}
+                    to={`/edition/by-country-nr/`}
+                    onClick={() => setActiveButton("by-country-nr")}
+                >
+                    Statistic1
                 </Button>
 
             )}
 
             {!loading && (
-                <Button component={Link} sx={{mr: 3}} to={`/edition/by-avg-qf/`}>Statistic2
+                // <Button component={Link} sx={{mr: 3}} to={`/edition/by-avg-qf/`}>Statistic2
+                // </Button>
+                <Button
+                    component={Link}
+                    sx={{mr: 3}}
+                    to={`/edition/by-avg-qf/`}
+                    onClick={() => setActiveButton("by-avg-qf")}
+                >
+                    Statistic2
                 </Button>
 
             )}

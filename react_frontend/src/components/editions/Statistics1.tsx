@@ -28,7 +28,8 @@ export const Statistics1 = () => {
     const [editions, setEditions] = useState<Edition[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [entitiesPerPage] = useState(50);
-    const [totalEntities,setTotalEntities] = useState(0)
+    const [totalEntities,setTotalEntities] = useState(0);
+    const [activeButton, setActiveButton] = useState("");
 
     useEffect(() => {
         setLoading(true);
@@ -40,6 +41,28 @@ export const Statistics1 = () => {
                 setLoading(false);
             });
     }, [currentPage]);
+    // useEffect(() => {
+    //     setLoading(true);
+    //
+    //     let apiUrl = `${BACKEND_API_URL}/edition`;
+    //
+    //     if (activeButton === "by-country-nr") {
+    //         apiUrl += "/by-country-nr";
+    //     } else if (activeButton === "by-avg-qf") {
+    //         apiUrl += "/by-avg-qf";
+    //     }
+    //
+    //     apiUrl += `?page=${currentPage}&page_size=${entitiesPerPage}`;
+    //
+    //     fetch(apiUrl)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setEditions(data.results);
+    //             setTotalEntities(data.count);
+    //             setLoading(false);
+    //         });
+    // }, [activeButton, currentPage, entitiesPerPage]);
+
 
     const endIndex = currentPage * PAGE_SIZE;
     const startIndex = endIndex - PAGE_SIZE;
