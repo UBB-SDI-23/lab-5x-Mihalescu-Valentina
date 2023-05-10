@@ -59,7 +59,7 @@ export const AllSongs = () => {
             <h1>All songs</h1>
 
             {loading && <CircularProgress />}
-            {!loading && songs.length === 0 && <p>No songs found</p>}
+            {!loading && songs.length === 0 && <p>No songs found girl!!</p>}
             {!loading && (
                 <IconButton component={Link} sx={{ mr: 3 }} to={`/song/add`}>
                     <Tooltip title="Add a new song" arrow>
