@@ -44,7 +44,7 @@ export const Statistics1 = () => {
 
     useEffect(() => {
         setLoading(true);
-        const apiUrl = `${BACKEND_API_URL}/edition/?page=${currentPage}&page_size=${entitiesPerPage}&ordering=-country_nr`;
+        const apiUrl = `${BACKEND_API_URL}/edition?page=${currentPage}&page_size=${entitiesPerPage}&ordering=-country_nr`;
 
         fetch(apiUrl)
             .then((response) => response.json())
