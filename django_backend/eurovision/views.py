@@ -252,7 +252,7 @@ class EditionViewForAutocomplete(APIView):
 
 
 class EditionByCountryQF(generics.ListAPIView):
-    serializer_class = EditionSerializerAVG
+    serializer_class = EditionSerializer
     pagination_class = EntityPaginator
 
     def get_queryset(self):

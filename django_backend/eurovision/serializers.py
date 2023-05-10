@@ -23,6 +23,7 @@ class VenueSerializer(serializers.ModelSerializer):
 
 class EditionSerializer(serializers.ModelSerializer):
     country_nr = serializers.IntegerField(read_only=True)
+    # avg_qf = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Edition
