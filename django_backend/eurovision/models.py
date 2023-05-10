@@ -129,7 +129,7 @@ class Song(models.Model):
 
 
 class Ids(models.Model):
-    edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
+    edition = models.ForeignKey(Edition, on_delete=models.CASCADE, db_index=True)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     place = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
