@@ -63,11 +63,11 @@ export const AllEditions = () => {
 
             )}
 
-            {/*{!loading && (*/}
-            {/*    <Button component={Link} sx={{mr: 3}} to={`/edition/by-avg-qf/`}>Statistic2*/}
-            {/*    </Button>*/}
+            {!loading && (
+                <Button component={Link} sx={{mr: 3}} to={`/edition/by-avg-qf/`}>Statistic2
+                </Button>
 
-            {/*)}*/}
+            )}
 
             {!loading && editions.length > 0 && (
                 <TableContainer component={Paper}>
