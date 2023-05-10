@@ -270,4 +270,16 @@ class EditionByCountryNR(generics.ListAPIView):
         queryset = Edition.objects \
             .annotate(country_nr=Count('countries__id')) \
             .order_by('-country_nr')
+        print(queryset.query)
+        return queryset
+
+class CountryByEditionNR(generics.ListAPIView):
+    serializer_class = CountrySerializer
+    pagination_class = EntityPaginator
+
+    def get_queryset(self):
+        queryset = Country.objects \
+            .annotate(edition_nr=Count('editions__id')) \
+            .order_by('-edition_nr')
+        print(queryset.query)
         return queryset
