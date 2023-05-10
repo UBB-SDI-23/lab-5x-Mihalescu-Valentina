@@ -23,6 +23,10 @@ export const HostCityAdd = () => {
         nb_venues:0,
     });
 
+    const [localError, setLocalError] = useState({
+        host_city_name: "",
+        host_city_mayor:"",
+    });
 
     const addHostCity = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
@@ -50,7 +54,25 @@ export const HostCityAdd = () => {
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
-                            onChange={(event) => setHostCity({ ...hostcity, host_city_name: event.target.value })}
+                            error={localError.host_city_name ? true : false}
+                            // onChange={(event) => setHostCity({ ...hostcity, host_city_name: event.target.value })}
+                            onChange={(event) => {
+                                const hasDigit = /\d/.test(event.target.value);
+                                if (
+                                    hasDigit
+
+                                ) {
+                                    setLocalError({
+                                        ...localError,
+                                        host_city_name: "The hostcity has to contain only letters",
+                                    });
+                                }
+                                else {
+                                    setLocalError({
+                                        ...localError,
+                                        host_city_name: "",
+                                    });}
+                                setHostCity({ ...hostcity, host_city_name: event.target.value })}}
                         />
                         <TextField
                             id="host_city_population"
@@ -66,7 +88,25 @@ export const HostCityAdd = () => {
                             variant="outlined"
                             fullWidth
                             sx={{ mb: 2 }}
-                            onChange={(event) => setHostCity({ ...hostcity, host_city_mayor: event.target.value })}
+                            error={localError.host_city_mayor ? true : false}
+                            // onChange={(event) => setHostCity({ ...hostcity, host_city_mayor: event.target.value })}
+                            onChange={(event) => {
+                                const hasDigit = /\d/.test(event.target.value);
+                                if (
+                                    hasDigit
+
+                                ) {
+                                    setLocalError({
+                                        ...localError,
+                                        host_city_mayor: "The mayor has to contain only letters",
+                                    });
+                                }
+                                else {
+                                    setLocalError({
+                                        ...localError,
+                                        host_city_mayor: "",
+                                    });}
+                                setHostCity({ ...hostcity, host_city_mayor: event.target.value })}}
 
                         />
                         <TextField
